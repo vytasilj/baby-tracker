@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BabyTracker.App.Views.ChildSetupPage"
+             Title="Add your baby">
+    <VerticalStackLayout Padding="20"
+                         Spacing="15"
+                         VerticalOptions="Center">
+        <Label Text="Baby's name"/>
+        <Entry Text="{Binding Name}"
+               Placeholder="e.g. Anna"/>
+
+        <Label Text="Date of birth"/>
+        <DatePicker Date="{Binding BirthDate}"
+                    x:Name="BirthDatePicker"/>
+
+        <Button Text="Save"
+                Command="{Binding SaveCommand}"/>
+        <ActivityIndicator IsRunning="{Binding IsSaving}"
+                           IsVisible="{Binding IsSaving}"/>
+    </VerticalStackLayout>
+</ContentPage>

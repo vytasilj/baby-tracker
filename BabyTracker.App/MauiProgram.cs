@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BabyTracker.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BabyTracker.App;
 
@@ -15,10 +17,30 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		var dbPath = Path.Combine(FileSystem.AppDataDirectory, "babytracker.db");
+
+		builder.Services.AddDbContextFactory<BabyTrackerDbContext>(options =>
+			options.UseSqlite($"Data Source={dbPath}"));
+		builder.Services.AddSingleton<ChildRepository>();
+		builder.Services.AddTransient<Views.StartupPage>();
+		builder.Services.AddTransient<ViewModels.ChildSetupViewModel>();
+		builder.Services.AddTransient<Views.ChildSetupPage>();
+		builder.Services.AddTransient<ViewModels.HomeViewModel>();
+		builder.Services.AddTransient<Views.HomePage>();
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+		var app = builder.Build();
+
+		using (var scope = app.Services.CreateScope())
+		{
+			var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<BabyTrackerDbContext>>();
+			using var db = dbFactory.CreateDbContext();
+			db.Database.Migrate();
+		}
+
+		return app;
 	}
 }

@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="BabyTracker.App/BabyTracker.App.csproj" />
+  <Project Path="BabyTracker.Data/BabyTracker.Data.csproj" />
 </Solution>

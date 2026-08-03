@@ -69,6 +69,11 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BabyTracker.Data\BabyTracker.Data.csproj" />
 	</ItemGroup>
 
 </Project>

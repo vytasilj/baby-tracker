@@ -1,4 +1,4 @@
-namespace BabyTracker.App.Localization;
+namespace BabyTracker.Data;
 
 // Maps a count to a grammatical category name, per language. Most languages
 // (English, German, ...) only distinguish "one" vs "everything else" — that's

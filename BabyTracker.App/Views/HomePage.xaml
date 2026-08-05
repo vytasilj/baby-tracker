@@ -3,21 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BabyTracker.App.Views.HomePage"
              Title="Baby Tracker">
-    <VerticalStackLayout Padding="20"
-                         Spacing="10"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Center">
-        <Button Text="{Binding ThemeIcon}"
-                Command="{Binding ToggleThemeCommand}"
-                HorizontalOptions="End"
-                WidthRequest="50"
-                FontSize="20"/>
-        <Label Text="{Binding ChildName}"
-               FontSize="28"
-               FontAttributes="Bold"
-               HorizontalTextAlignment="Center"/>
-        <Label Text="{Binding Age}"
-               FontSize="18"
-               HorizontalTextAlignment="Center"/>
-    </VerticalStackLayout>
+       <VerticalStackLayout Padding="20"
+                            Spacing="10"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+              <HorizontalStackLayout HorizontalOptions="End"
+                                     Spacing="8">
+                     <Button Text="⚙️"
+                             Command="{Binding OpenSettingsCommand}"
+                             WidthRequest="50"
+                             FontSize="20"/>
+                     <Button Text="{Binding ThemeIcon}"
+                             Command="{Binding ToggleThemeCommand}"
+                             WidthRequest="50"
+                             FontSize="20"/>
+              </HorizontalStackLayout>
+              <Label Text="{Binding ChildName}"
+                     FontSize="28"
+                     FontAttributes="Bold"
+                     HorizontalTextAlignment="Center"/>
+              <Label Text="{Binding Age}"
+                     FontSize="18"
+                     HorizontalTextAlignment="Center"/>
+       </VerticalStackLayout>
 </ContentPage>

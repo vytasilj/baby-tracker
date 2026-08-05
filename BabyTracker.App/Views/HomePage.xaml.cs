@@ -1,12 +1,13 @@
 using BabyTracker.App.ViewModels;
-using BabyTracker.App.Services;
+
 namespace BabyTracker.App.Views;
 
 public partial class HomePage : ContentPage
 {
-    public HomePage(HomeViewModel viewModel)
+    public HomePage(HomeViewModel viewModel, IServiceProvider services)
     {
         InitializeComponent();
         BindingContext = viewModel;
+        viewModel.SettingsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SettingsPage>());
     }
 }

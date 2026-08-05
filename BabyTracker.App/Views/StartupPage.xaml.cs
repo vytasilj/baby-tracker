@@ -35,7 +35,10 @@ public partial class StartupPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlertAsync("Startup error", ex.ToString(), "OK");
+            await DisplayAlertAsync(
+                Localization.LocalizationResourceManager.Instance["Startup_Error_Title"],
+                ex.ToString(),
+                Localization.LocalizationResourceManager.Instance["Common_Ok"]);
         }
     }
 }

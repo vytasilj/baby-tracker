@@ -1,5 +1,9 @@
 namespace BabyTracker.Data;
 
+public enum AgeUnit { NotBornYet, Days, Weeks, Months }
+
+public record AgeDescription(AgeUnit Unit, int Primary, int Secondary);
+
 public static class AgeCalculator
 {
     public static int TotalDays(DateOnly birthDate, DateOnly asOf) => asOf.DayNumber - birthDate.DayNumber;
@@ -16,23 +20,18 @@ public static class AgeCalculator
         return (months, asOf.DayNumber - candidate.DayNumber);
     }
 
-    // Chooses the most readable unit depending on age: days for newborns,
-    // weeks for the first couple of months, then months — matches how parents
-    // naturally talk about a baby's age at different stages.
-    public static string Describe(DateOnly birthDate, DateOnly asOf)
+    public static AgeDescription Calculate(DateOnly birthDate, DateOnly asOf)
     {
         var totalDays = TotalDays(birthDate, asOf);
-        if (totalDays < 0) return "Not born yet";
-        if (totalDays < 14) return totalDays == 1 ? "1 day" : $"{totalDays} days";
+        if (totalDays < 0) return new AgeDescription(AgeUnit.NotBornYet, 0, 0);
+        if (totalDays < 14) return new AgeDescription(AgeUnit.Days, totalDays, 0);
 
         if (totalDays < 60)
         {
-            var weeks = totalDays / 7;
-            var days = totalDays % 7;
-            return days == 0 ? $"{weeks} weeks" : $"{weeks}w {days}d";
+            return new AgeDescription(AgeUnit.Weeks, totalDays / 7, totalDays % 7);
         }
 
         var (months, remDays) = MonthsAndDays(birthDate, asOf);
-        return remDays == 0 ? $"{months} months" : $"{months}m {remDays}d";
+        return new AgeDescription(AgeUnit.Months, months, remDays);
     }
 }

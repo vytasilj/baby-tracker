@@ -10,6 +10,7 @@ public partial class App : Application
 	{
 		InitializeComponent();
 		Services.ThemeService.ApplySavedTheme();
+		Localization.LocalizationResourceManager.Instance.ApplySavedLanguage();
 		_startupPage = startupPage;
 	}
 

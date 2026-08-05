@@ -27,6 +27,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<Views.ChildSetupPage>();
 		builder.Services.AddTransient<ViewModels.HomeViewModel>();
 		builder.Services.AddTransient<Views.HomePage>();
+		builder.Services.AddTransient<ViewModels.SettingsViewModel>();
+		builder.Services.AddTransient<Views.SettingsPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

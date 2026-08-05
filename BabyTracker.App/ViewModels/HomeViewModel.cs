@@ -2,11 +2,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BabyTracker.Data;
 using BabyTracker.App.Services;
+using BabyTracker.App.Localization;
 
 namespace BabyTracker.App.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
+    private AgeDescription? _ageDescription;
+
     [ObservableProperty]
     private string _childName = "";
 
@@ -16,9 +19,18 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty]
     private string _themeIcon = ThemeService.GetIconForCurrentTheme();
 
+    public event Action? SettingsRequested;
+
     public HomeViewModel(ChildRepository repository)
     {
         _ = LoadAsync(repository);
+        LocalizationResourceManager.Instance.PropertyChanged += (_, _) =>
+        {
+            if (_ageDescription is not null)
+            {
+                Age = AgeFormatter.Format(_ageDescription);
+            }
+        };
     }
 
     private async Task LoadAsync(ChildRepository repository)
@@ -28,7 +40,8 @@ public partial class HomeViewModel : ObservableObject
         if (child is null) return;
 
         ChildName = child.Name;
-        Age = AgeCalculator.Describe(child.BirthDate, DateOnly.FromDateTime(DateTime.Today));
+        _ageDescription = AgeCalculator.Calculate(child.BirthDate, DateOnly.FromDateTime(DateTime.Today));
+        Age = AgeFormatter.Format(_ageDescription);
     }
 
     [RelayCommand]
@@ -37,4 +50,7 @@ public partial class HomeViewModel : ObservableObject
         ThemeService.ToggleTheme();
         ThemeIcon = ThemeService.GetIconForCurrentTheme();
     }
+
+    [RelayCommand]
+    private void OpenSettings() => SettingsRequested?.Invoke();
 }

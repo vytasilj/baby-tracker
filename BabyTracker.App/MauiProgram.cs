@@ -1,6 +1,7 @@
 ﻿using BabyTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace BabyTracker.App;
 
@@ -11,6 +12,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -35,6 +37,11 @@ public static class MauiProgram
 		builder.Services.AddTransient<Views.DiaperListPage>();
 		builder.Services.AddTransient<ViewModels.DiaperEntryViewModel>();
 		builder.Services.AddTransient<Views.DiaperEntryPage>();
+		builder.Services.AddSingleton<FeedingRepository>();
+		builder.Services.AddTransient<ViewModels.FeedingListViewModel>();
+		builder.Services.AddTransient<Views.FeedingListPage>();
+		builder.Services.AddTransient<ViewModels.FeedingEntryViewModel>();
+		builder.Services.AddTransient<Views.FeedingEntryPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

@@ -6,15 +6,17 @@ using BabyTracker.App.Services;
 
 namespace BabyTracker.App.ViewModels;
 
-public record DiaperTypeOption(DiaperType Value, string Display);
+public record FeedingTypeOption(FeedingType Value, string Display);
+public record BreastSideOption(BreastSide Value, string Display);
 
-public partial class DiaperEntryViewModel : ObservableObject
+public partial class FeedingEntryViewModel : ObservableObject
 {
-    private readonly DiaperRepository _repository;
+    private readonly FeedingRepository _repository;
     private readonly CurrentChildContext _childContext;
     private Guid? _entryId;
 
-    public List<DiaperTypeOption> TypeOptions { get; }
+    public List<FeedingTypeOption> TypeOptions { get; }
+    public List<BreastSideOption> SideOptions { get; }
 
     [ObservableProperty]
     private DateTime _entryDate = DateTime.Today;
@@ -23,7 +25,15 @@ public partial class DiaperEntryViewModel : ObservableObject
     private TimeSpan _entryTime = DateTime.Now.TimeOfDay;
 
     [ObservableProperty]
-    private DiaperTypeOption _selectedType;
+    [NotifyPropertyChangedFor(nameof(ShowSideField))]
+    [NotifyPropertyChangedFor(nameof(ShowAmountField))]
+    private FeedingTypeOption _selectedType;
+
+    [ObservableProperty]
+    private BreastSideOption _selectedSide;
+
+    [ObservableProperty]
+    private int? _amountMl;
 
     [ObservableProperty]
     private string _notes = "";
@@ -34,9 +44,12 @@ public partial class DiaperEntryViewModel : ObservableObject
     [ObservableProperty]
     private bool _isSaving;
 
+    public bool ShowSideField => SelectedType.Value == FeedingType.Breast;
+    public bool ShowAmountField => SelectedType.Value == FeedingType.Bottle;
+
     public event Action? Completed;
 
-    public DiaperEntryViewModel(DiaperRepository repository, CurrentChildContext childContext)
+    public FeedingEntryViewModel(FeedingRepository repository, CurrentChildContext childContext)
     {
         _repository = repository;
         _childContext = childContext;
@@ -44,14 +57,22 @@ public partial class DiaperEntryViewModel : ObservableObject
         var loc = LocalizationResourceManager.Instance;
         TypeOptions =
         [
-            new(DiaperType.Wet, loc["Diaper_Type_Wet"]),
-            new(DiaperType.Dirty, loc["Diaper_Type_Dirty"]),
-            new(DiaperType.Both, loc["Diaper_Type_Both"]),
+            new(FeedingType.Breast, loc["Feeding_Type_Breast"]),
+            new(FeedingType.Bottle, loc["Feeding_Type_Bottle"]),
+            new(FeedingType.Solid, loc["Feeding_Type_Solid"]),
         ];
+        SideOptions =
+        [
+            new(BreastSide.Left, loc["Feeding_Side_Left"]),
+            new(BreastSide.Right, loc["Feeding_Side_Right"]),
+            new(BreastSide.Both, loc["Feeding_Side_Both"]),
+        ];
+
         _selectedType = TypeOptions[0];
+        _selectedSide = SideOptions[0];
     }
 
-    public void LoadEntry(DiaperEntry? entry)
+    public void LoadEntry(FeedingEntry? entry)
     {
         if (entry is null)
         {
@@ -60,6 +81,8 @@ public partial class DiaperEntryViewModel : ObservableObject
             EntryDate = DateTime.Today;
             EntryTime = DateTime.Now.TimeOfDay;
             SelectedType = TypeOptions[0];
+            SelectedSide = SideOptions[0];
+            AmountMl = null;
             Notes = "";
             return;
         }
@@ -69,6 +92,8 @@ public partial class DiaperEntryViewModel : ObservableObject
         EntryDate = entry.OccurredAt.Date;
         EntryTime = entry.OccurredAt.TimeOfDay;
         SelectedType = TypeOptions.First(o => o.Value == entry.Type);
+        SelectedSide = entry.Side is { } side ? SideOptions.First(o => o.Value == side) : SideOptions[0];
+        AmountMl = entry.AmountMl;
         Notes = entry.Notes ?? "";
     }
 
@@ -81,25 +106,31 @@ public partial class DiaperEntryViewModel : ObservableObject
         try
         {
             var occurredAt = EntryDate.Date + EntryTime;
+            var side = ShowSideField ? SelectedSide.Value : (BreastSide?)null;
+            var amount = ShowAmountField ? AmountMl : null;
 
             if (_entryId is { } id)
             {
-                await _repository.UpdateAsync(new DiaperEntry
+                await _repository.UpdateAsync(new FeedingEntry
                 {
                     Id = id,
                     ChildId = childId,
                     OccurredAt = occurredAt,
                     Type = SelectedType.Value,
+                    Side = side,
+                    AmountMl = amount,
                     Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim()
                 });
             }
             else
             {
-                await _repository.AddAsync(new DiaperEntry
+                await _repository.AddAsync(new FeedingEntry
                 {
                     ChildId = childId,
                     OccurredAt = occurredAt,
                     Type = SelectedType.Value,
+                    Side = side,
+                    AmountMl = amount,
                     Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim()
                 });
             }
@@ -115,10 +146,7 @@ public partial class DiaperEntryViewModel : ObservableObject
     [RelayCommand]
     private async Task Delete()
     {
-        if (_entryId is { } id)
-        {
-            await _repository.DeleteAsync(id);
-        }
+        if (_entryId is { } id) await _repository.DeleteAsync(id);
         await NotificationService.ShowAsync(LocalizationResourceManager.Instance["Common_Deleted"]);
         Completed?.Invoke();
     }

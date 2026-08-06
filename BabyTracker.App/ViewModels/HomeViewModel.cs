@@ -26,6 +26,11 @@ public partial class HomeViewModel : ObservableObject
 
     public event Action? DiapersRequested;
 
+    [RelayCommand]
+    private void OpenFeedings() => FeedingsRequested?.Invoke();
+
+    public event Action? FeedingsRequested;
+
     public HomeViewModel(ChildRepository repository)
     {
         _ = LoadAsync(repository);

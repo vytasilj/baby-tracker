@@ -15,6 +15,8 @@ public partial class ChildSetupViewModel(ChildRepository repository) : Observabl
     [ObservableProperty]
     private bool _isSaving;
 
+    public Guid SavedChildId { get; private set; }
+
     public event Action? Saved;
 
     [RelayCommand]
@@ -25,7 +27,8 @@ public partial class ChildSetupViewModel(ChildRepository repository) : Observabl
         IsSaving = true;
         try
         {
-            await repository.AddAsync(Name.Trim(), DateOnly.FromDateTime(BirthDate));
+            var child = await repository.AddAsync(Name.Trim(), DateOnly.FromDateTime(BirthDate));
+            SavedChildId = child.Id;
             Saved?.Invoke();
         }
         finally

@@ -29,6 +29,12 @@ public static class MauiProgram
 		builder.Services.AddTransient<Views.HomePage>();
 		builder.Services.AddTransient<ViewModels.SettingsViewModel>();
 		builder.Services.AddTransient<Views.SettingsPage>();
+		builder.Services.AddSingleton<Services.CurrentChildContext>();
+		builder.Services.AddSingleton<DiaperRepository>();
+		builder.Services.AddTransient<ViewModels.DiaperListViewModel>();
+		builder.Services.AddTransient<Views.DiaperListPage>();
+		builder.Services.AddTransient<ViewModels.DiaperEntryViewModel>();
+		builder.Services.AddTransient<Views.DiaperEntryPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

@@ -21,6 +21,11 @@ public partial class HomeViewModel : ObservableObject
 
     public event Action? SettingsRequested;
 
+    [RelayCommand]
+    private void OpenDiapers() => DiapersRequested?.Invoke();
+
+    public event Action? DiapersRequested;
+
     public HomeViewModel(ChildRepository repository)
     {
         _ = LoadAsync(repository);

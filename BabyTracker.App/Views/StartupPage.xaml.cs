@@ -1,4 +1,5 @@
 using BabyTracker.Data;
+using BabyTracker.App.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BabyTracker.App.Views;
@@ -6,13 +7,15 @@ namespace BabyTracker.App.Views;
 public partial class StartupPage : ContentPage
 {
     private readonly ChildRepository _repository;
+    private readonly CurrentChildContext _childContext;
     private readonly IServiceProvider _services;
     private bool _hasNavigated;
 
-    public StartupPage(ChildRepository repository, IServiceProvider services)
+    public StartupPage(ChildRepository repository, CurrentChildContext childContext, IServiceProvider services)
     {
         InitializeComponent();
         _repository = repository;
+        _childContext = childContext;
         _services = services;
     }
 
@@ -26,9 +29,18 @@ public partial class StartupPage : ContentPage
         try
         {
             var children = await _repository.GetAllAsync();
-            var next = children.Count == 0
-                ? _services.GetRequiredService<ChildSetupPage>()
-                : (Page)_services.GetRequiredService<HomePage>();
+            var child = children.FirstOrDefault();
+
+            Page next;
+            if (child is null)
+            {
+                next = _services.GetRequiredService<ChildSetupPage>();
+            }
+            else
+            {
+                _childContext.Set(child.Id, child.Name);
+                next = _services.GetRequiredService<HomePage>();
+            }
 
             Navigation.InsertPageBefore(next, this);
             await Navigation.PopAsync();

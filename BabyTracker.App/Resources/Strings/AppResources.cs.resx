@@ -193,4 +193,14 @@
     <value>měsíců</value>
     <comment/>
   </data>
+  <data name="Diaper_Title" xml:space="preserve"><value>Plenky</value></data>
+  <data name="Diaper_TypeLabel" xml:space="preserve"><value>Typ</value></data>
+  <data name="Common_TimeLabel" xml:space="preserve"><value>Čas</value></data>
+  <data name="Common_NotesLabel" xml:space="preserve"><value>Poznámka</value></data>
+  <data name="Common_SaveButton" xml:space="preserve"><value>Uložit</value></data>
+  <data name="Common_DeleteButton" xml:space="preserve"><value>Smazat</value></data>
+  <data name="Common_AddNew" xml:space="preserve"><value>+ Přidat</value></data>
+  <data name="Diaper_Type_Wet" xml:space="preserve"><value>Čůrání</value></data>
+  <data name="Diaper_Type_Dirty" xml:space="preserve"><value>Kakání</value></data>
+  <data name="Diaper_Type_Both" xml:space="preserve"><value>Obojí</value></data>
 </root>

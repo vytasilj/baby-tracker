@@ -25,5 +25,7 @@
               <Label Text="{Binding Age}"
                      FontSize="18"
                      HorizontalTextAlignment="Center"/>
+              <Button Text="Diapers (temp)"
+                      Command="{Binding OpenDiapersCommand}"/>
        </VerticalStackLayout>
 </ContentPage>

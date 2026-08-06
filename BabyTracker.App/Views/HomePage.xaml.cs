@@ -9,5 +9,6 @@ public partial class HomePage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
         viewModel.SettingsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SettingsPage>());
+        viewModel.DiapersRequested += async () => await Navigation.PushAsync(services.GetRequiredService<DiaperListPage>());
     }
 }

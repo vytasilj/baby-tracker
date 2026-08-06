@@ -31,6 +31,11 @@ public partial class HomeViewModel : ObservableObject
 
     public event Action? FeedingsRequested;
 
+    [RelayCommand]
+    private void OpenSleep() => SleepRequested?.Invoke();
+
+    public event Action? SleepRequested;
+
     public HomeViewModel(ChildRepository repository)
     {
         _ = LoadAsync(repository);

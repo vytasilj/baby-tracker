@@ -42,6 +42,11 @@ public static class MauiProgram
 		builder.Services.AddTransient<Views.FeedingListPage>();
 		builder.Services.AddTransient<ViewModels.FeedingEntryViewModel>();
 		builder.Services.AddTransient<Views.FeedingEntryPage>();
+		builder.Services.AddSingleton<SleepRepository>();
+		builder.Services.AddTransient<ViewModels.SleepListViewModel>();
+		builder.Services.AddTransient<Views.SleepListPage>();
+		builder.Services.AddTransient<ViewModels.SleepEntryViewModel>();
+		builder.Services.AddTransient<Views.SleepEntryPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

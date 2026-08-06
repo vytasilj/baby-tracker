@@ -20,10 +20,5 @@ public static class AgeFormatter
         };
     }
 
-    private static string FormatUnit(int count, string unitKey)
-    {
-        var loc = LocalizationResourceManager.Instance;
-        var category = PluralRules.GetCategory(loc.CurrentLanguageCode, count);
-        return $"{count} {loc[$"Unit_{unitKey}_{category}"]}";
-    }
+    private static string FormatUnit(int count, string unitKey) => PluralFormatter.Format(count, unitKey);
 }

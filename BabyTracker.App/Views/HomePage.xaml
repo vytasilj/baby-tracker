@@ -33,6 +33,8 @@
                                    Command="{Binding OpenDiapersCommand}"/>
                      <Button Text="Feeding (temp)"
                                    Command="{Binding OpenFeedingCommand}"/>
+                     <Button Text="Sleep (temp)"
+                                   Command="{Binding OpenSleepCommand}"/>
               </VerticalStackLayout>
        </Grid>
 </ContentPage>

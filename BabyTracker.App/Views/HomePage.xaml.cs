@@ -11,5 +11,6 @@ public partial class HomePage : ContentPage
         viewModel.SettingsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SettingsPage>());
         viewModel.DiapersRequested += async () => await Navigation.PushAsync(services.GetRequiredService<DiaperListPage>());
         viewModel.FeedingsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<FeedingListPage>());
+        viewModel.SleepRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SleepListPage>());
     }
 }

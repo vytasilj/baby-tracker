@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:BabyTracker.App.Localization"
+             xmlns:vm="clr-namespace:BabyTracker.App.ViewModels"
+             x:Class="BabyTracker.App.Views.ChildrenPage"
+             Title="{loc:Translate Key=Children_Title}">
+    <Grid RowDefinitions="*,Auto">
+        <CollectionView Grid.Row="0"
+                ItemsSource="{Binding Children}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ChildListItem">
+                    <Grid Padding="15,10"
+                            ColumnDefinitions="*,Auto,Auto,Auto">
+                        <Label Grid.Column="0"
+                                Text="{Binding Name}"
+                                FontSize="16"
+                                VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SwitchCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Grid.Column="1"
+                                Text="✓"
+                                IsVisible="{Binding IsCurrent}"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"
+                                Margin="0,0,10,0"/>
+                        <Button Grid.Column="2"
+                                Text="✏️"
+                                BackgroundColor="Transparent"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCommand}"
+                                CommandParameter="{Binding .}"/>
+                        <Button Grid.Column="3"
+                                Text="🗑️"
+                                BackgroundColor="Transparent"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=DeleteRequestCommand}"
+                                CommandParameter="{Binding .}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Grid.Row="1"
+                Text="{loc:Translate Key=Children_AddButton}"
+                Margin="15"
+                Command="{Binding AddNewCommand}"/>
+    </Grid>
+</ContentPage>

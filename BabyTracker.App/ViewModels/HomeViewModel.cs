@@ -8,6 +8,8 @@ namespace BabyTracker.App.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
+    private readonly ChildRepository _repository;
+    private readonly CurrentChildContext _childContext;
     private AgeDescription? _ageDescription;
 
     [ObservableProperty]
@@ -20,38 +22,30 @@ public partial class HomeViewModel : ObservableObject
     private string _themeIcon = ThemeService.GetIconForCurrentTheme();
 
     public event Action? SettingsRequested;
-
-    [RelayCommand]
-    private void OpenDiapers() => DiapersRequested?.Invoke();
-
+    public event Action? ChildrenRequested;
     public event Action? DiapersRequested;
-
-    [RelayCommand]
-    private void OpenFeedings() => FeedingsRequested?.Invoke();
-
-    public event Action? FeedingsRequested;
-
-    [RelayCommand]
-    private void OpenSleep() => SleepRequested?.Invoke();
-
+    public event Action? FeedingRequested;
     public event Action? SleepRequested;
 
-    public HomeViewModel(ChildRepository repository)
+    public HomeViewModel(ChildRepository repository, CurrentChildContext childContext)
     {
-        _ = LoadAsync(repository);
+        _repository = repository;
+        _childContext = childContext;
+
+        _ = RefreshAsync();
+        _childContext.Changed += async () => await RefreshAsync();
+
         LocalizationResourceManager.Instance.PropertyChanged += (_, _) =>
         {
-            if (_ageDescription is not null)
-            {
-                Age = AgeFormatter.Format(_ageDescription);
-            }
+            if (_ageDescription is not null) Age = AgeFormatter.Format(_ageDescription);
         };
     }
 
-    private async Task LoadAsync(ChildRepository repository)
+    private async Task RefreshAsync()
     {
-        var children = await repository.GetAllAsync();
-        var child = children.FirstOrDefault();
+        if (_childContext.ChildId is not { } childId) return;
+
+        var child = await _repository.GetByIdAsync(childId);
         if (child is null) return;
 
         ChildName = child.Name;
@@ -66,6 +60,9 @@ public partial class HomeViewModel : ObservableObject
         ThemeIcon = ThemeService.GetIconForCurrentTheme();
     }
 
-    [RelayCommand]
-    private void OpenSettings() => SettingsRequested?.Invoke();
+    [RelayCommand] private void OpenSettings() => SettingsRequested?.Invoke();
+    [RelayCommand] private void OpenChildren() => ChildrenRequested?.Invoke();
+    [RelayCommand] private void OpenDiapers() => DiapersRequested?.Invoke();
+    [RelayCommand] private void OpenFeeding() => FeedingRequested?.Invoke();
+    [RelayCommand] private void OpenSleep() => SleepRequested?.Invoke();
 }

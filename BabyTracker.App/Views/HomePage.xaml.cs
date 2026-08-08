@@ -10,7 +10,8 @@ public partial class HomePage : ContentPage
         BindingContext = viewModel;
         viewModel.SettingsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SettingsPage>());
         viewModel.DiapersRequested += async () => await Navigation.PushAsync(services.GetRequiredService<DiaperListPage>());
-        viewModel.FeedingsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<FeedingListPage>());
+        viewModel.FeedingRequested += async () => await Navigation.PushAsync(services.GetRequiredService<FeedingListPage>());
         viewModel.SleepRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SleepListPage>());
+        viewModel.ChildrenRequested += async () => await Navigation.PushAsync(services.GetRequiredService<ChildrenPage>());
     }
 }

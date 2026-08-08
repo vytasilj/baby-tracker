@@ -17,5 +17,9 @@
                         Command="{Binding SaveCommand}"/>
                 <ActivityIndicator IsRunning="{Binding IsSaving}"
                                    IsVisible="{Binding IsSaving}"/>
+                <Button Text="{loc:Translate Key=Common_DeleteButton}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=DeleteRequestCommand}"
+                        IsVisible="{Binding IsEditing}"
+                                BackgroundColor="IndianRed"/>
         </VerticalStackLayout>
 </ContentPage>

@@ -40,6 +40,8 @@ public partial class SleepEntryViewModel : ObservableObject
     [ObservableProperty]
     private bool _isSaving;
 
+    private DateTime _createdAt;
+
     public event Action? Completed;
 
     public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
@@ -75,6 +77,7 @@ public partial class SleepEntryViewModel : ObservableObject
         EndDate = entry.EndTime?.Date ?? DateTime.Today;
         EndTime = entry.EndTime?.TimeOfDay ?? DateTime.Now.TimeOfDay;
         Notes = entry.Notes ?? "";
+        _createdAt = entry.CreatedAt;
     }
 
     [RelayCommand]
@@ -117,7 +120,8 @@ public partial class SleepEntryViewModel : ObservableObject
                     ChildId = childId,
                     StartTime = start,
                     EndTime = end,
-                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim()
+                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim(),
+                    CreatedAt = _createdAt
                 });
             }
             else

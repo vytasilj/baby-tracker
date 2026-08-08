@@ -47,6 +47,8 @@ public partial class FeedingEntryViewModel : ObservableObject
     public bool ShowSideField => SelectedType.Value == FeedingType.Breast;
     public bool ShowAmountField => SelectedType.Value == FeedingType.Bottle;
 
+    private DateTime _createdAt;
+
     public event Action? Completed;
 
     public FeedingEntryViewModel(FeedingRepository repository, CurrentChildContext childContext)
@@ -95,6 +97,7 @@ public partial class FeedingEntryViewModel : ObservableObject
         SelectedSide = entry.Side is { } side ? SideOptions.First(o => o.Value == side) : SideOptions[0];
         AmountMl = entry.AmountMl;
         Notes = entry.Notes ?? "";
+        _createdAt = entry.CreatedAt;
     }
 
     [RelayCommand]
@@ -119,7 +122,8 @@ public partial class FeedingEntryViewModel : ObservableObject
                     Type = SelectedType.Value,
                     Side = side,
                     AmountMl = amount,
-                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim()
+                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim(),
+                    CreatedAt = _createdAt
                 });
             }
             else

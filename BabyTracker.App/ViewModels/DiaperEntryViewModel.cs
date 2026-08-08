@@ -34,6 +34,8 @@ public partial class DiaperEntryViewModel : ObservableObject
     [ObservableProperty]
     private bool _isSaving;
 
+    private DateTime _createdAt;
+
     public event Action? Completed;
 
     public DiaperEntryViewModel(DiaperRepository repository, CurrentChildContext childContext)
@@ -70,6 +72,7 @@ public partial class DiaperEntryViewModel : ObservableObject
         EntryTime = entry.OccurredAt.TimeOfDay;
         SelectedType = TypeOptions.First(o => o.Value == entry.Type);
         Notes = entry.Notes ?? "";
+        _createdAt = entry.CreatedAt;
     }
 
     [RelayCommand]
@@ -90,7 +93,8 @@ public partial class DiaperEntryViewModel : ObservableObject
                     ChildId = childId,
                     OccurredAt = occurredAt,
                     Type = SelectedType.Value,
-                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim()
+                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim(),
+                    CreatedAt = _createdAt
                 });
             }
             else

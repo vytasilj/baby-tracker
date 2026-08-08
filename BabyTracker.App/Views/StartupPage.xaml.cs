@@ -29,15 +29,16 @@ public partial class StartupPage : ContentPage
         try
         {
             var children = await _repository.GetAllAsync();
-            var child = children.FirstOrDefault();
 
             Page next;
-            if (child is null)
+            if (children.Count == 0)
             {
                 next = _services.GetRequiredService<ChildSetupPage>();
             }
             else
             {
+                var lastId = CurrentChildContext.GetLastSelectedChildId();
+                var child = children.FirstOrDefault(c => c.Id == lastId) ?? children[0];
                 _childContext.Set(child.Id, child.Name);
                 next = _services.GetRequiredService<HomePage>();
             }

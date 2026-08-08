@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using BabyTracker.App.Extensions;
 
 namespace BabyTracker.App;
 
@@ -19,34 +20,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		var dbPath = Path.Combine(FileSystem.AppDataDirectory, "babytracker.db");
-
-		builder.Services.AddDbContextFactory<BabyTrackerDbContext>(options =>
-			options.UseSqlite($"Data Source={dbPath}"));
-		builder.Services.AddSingleton<ChildRepository>();
-		builder.Services.AddTransient<Views.StartupPage>();
-		builder.Services.AddTransient<ViewModels.ChildSetupViewModel>();
-		builder.Services.AddTransient<Views.ChildSetupPage>();
-		builder.Services.AddTransient<ViewModels.HomeViewModel>();
-		builder.Services.AddTransient<Views.HomePage>();
-		builder.Services.AddTransient<ViewModels.SettingsViewModel>();
-		builder.Services.AddTransient<Views.SettingsPage>();
-		builder.Services.AddSingleton<Services.CurrentChildContext>();
-		builder.Services.AddSingleton<DiaperRepository>();
-		builder.Services.AddTransient<ViewModels.DiaperListViewModel>();
-		builder.Services.AddTransient<Views.DiaperListPage>();
-		builder.Services.AddTransient<ViewModels.DiaperEntryViewModel>();
-		builder.Services.AddTransient<Views.DiaperEntryPage>();
-		builder.Services.AddSingleton<FeedingRepository>();
-		builder.Services.AddTransient<ViewModels.FeedingListViewModel>();
-		builder.Services.AddTransient<Views.FeedingListPage>();
-		builder.Services.AddTransient<ViewModels.FeedingEntryViewModel>();
-		builder.Services.AddTransient<Views.FeedingEntryPage>();
-		builder.Services.AddSingleton<SleepRepository>();
-		builder.Services.AddTransient<ViewModels.SleepListViewModel>();
-		builder.Services.AddTransient<Views.SleepListPage>();
-		builder.Services.AddTransient<ViewModels.SleepEntryViewModel>();
-		builder.Services.AddTransient<Views.SleepEntryPage>();
+		builder.Services
+			.AddAppData()
+			.AddAppServices()
+			.AddViewModelsAndPages();
 
 #if DEBUG
 		builder.Logging.AddDebug();

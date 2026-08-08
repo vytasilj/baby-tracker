@@ -7,8 +7,8 @@
 - [x] Localization infrastructure (resx, EN default, CS, system-language detection, live switching)
 - [x] Settings screen
 - [x] Data model for Feeding, Sleep, Diaper entries
-- [ ] **Actually recording and viewing Feeding, Sleep, Diaper entries** ← currently the app cannot log anything yet, this is next
-- [ ] Multi-child support in the UI (data model already has ChildId everywhere, but there's no way to add/switch between children yet)
+- [x] Actually recording and viewing Feeding, Sleep, Diaper entries
+- [x] Multi-child support in the UI (data model already has ChildId everywhere, but there's no way to add/switch between children yet)
 
 ## Phase 2: Extended trackers
 - [ ] Temperature

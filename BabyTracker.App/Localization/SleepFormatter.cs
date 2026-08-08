@@ -9,9 +9,14 @@ public static class SleepFormatter
             return LocalizationResourceManager.Instance["Common_InProgress"];
         }
 
-        var duration = end.Value - start;
-        var hours = (int)duration.TotalHours;
-        var minutes = duration.Minutes;
+        return FormatTotalHours((end.Value - start).TotalHours);
+    }
+
+    public static string FormatTotalHours(double totalHours)
+    {
+        var totalMinutes = (int)Math.Round(totalHours * 60);
+        var hours = totalMinutes / 60;
+        var minutes = totalMinutes % 60;
 
         if (hours == 0) return PluralFormatter.Format(minutes, "Minute");
         if (minutes == 0) return PluralFormatter.Format(hours, "Hour");

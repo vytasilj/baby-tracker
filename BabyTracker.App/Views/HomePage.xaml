@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:BabyTracker.App.Localization"
              x:Class="BabyTracker.App.Views.HomePage"
              Title="Baby Tracker">
-       <Grid RowDefinitions="Auto,*"
-                     Padding="15">
+       <Grid RowDefinitions="Auto,Auto,*"
+                     Padding="15"
+                     RowSpacing="15">
               <HorizontalStackLayout Grid.Row="0"
                             HorizontalOptions="End"
                             Spacing="8">
@@ -23,22 +25,130 @@
               </HorizontalStackLayout>
 
               <VerticalStackLayout Grid.Row="1"
-                            Spacing="10"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center">
+                            HorizontalOptions="Center"
+                            Spacing="2">
                      <Label Text="{Binding ChildName}"
-                                   FontSize="28"
+                                   FontSize="26"
                                    FontAttributes="Bold"
                                    HorizontalTextAlignment="Center"/>
                      <Label Text="{Binding Age}"
-                                   FontSize="18"
+                                   FontSize="16"
+                                   Opacity="0.7"
                                    HorizontalTextAlignment="Center"/>
-                     <Button Text="Diapers (temp)"
-                                   Command="{Binding OpenDiapersCommand}"/>
-                     <Button Text="Feeding (temp)"
-                                   Command="{Binding OpenFeedingCommand}"/>
-                     <Button Text="Sleep (temp)"
-                                   Command="{Binding OpenSleepCommand}"/>
+              </VerticalStackLayout>
+
+              <VerticalStackLayout Grid.Row="2"
+                            Spacing="12">
+                     <!-- Feeding -->
+                     <Border Padding="15"
+                                   StrokeThickness="1"
+                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
+                            <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                   <Grid.GestureRecognizers>
+                                          <TapGestureRecognizer Command="{Binding OpenFeedingCommand}"/>
+                                   </Grid.GestureRecognizers>
+                                   <Label Grid.Column="0"
+                                                 Text="🍼"
+                                                 FontSize="30"
+                                                 VerticalOptions="Center"/>
+                                   <VerticalStackLayout Grid.Column="1"
+                                                 Margin="15,0"
+                                                 VerticalOptions="Center">
+                                          <Label Text="{loc:Translate Key=Feeding_Title}"
+                                                        FontSize="14"
+                                                        Opacity="0.7"/>
+                                          <Label Text="{Binding FeedingSummary}"
+                                                        FontSize="24"
+                                                        FontAttributes="Bold"/>
+                                   </VerticalStackLayout>
+                                   <Button Grid.Column="2"
+                                                 Text="+"
+                                                 FontSize="24"
+                                                 WidthRequest="46"
+                                                 HeightRequest="46"
+                                           CornerRadius="23"
+                                                 Padding="0"
+                                                 VerticalOptions="Center"
+                                           Command="{Binding AddFeedingCommand}"/>
+                            </Grid>
+                     </Border>
+
+                     <!-- Sleep -->
+                     <Border Padding="15"
+                                   StrokeThickness="1"
+                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
+                            <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                   <Grid.GestureRecognizers>
+                                          <TapGestureRecognizer Command="{Binding OpenSleepCommand}"/>
+                                   </Grid.GestureRecognizers>
+                                   <Label Grid.Column="0"
+                                                 Text="😴"
+                                                 FontSize="30"
+                                                 VerticalOptions="Center"/>
+                                   <VerticalStackLayout Grid.Column="1"
+                                                 Margin="15,0"
+                                                 VerticalOptions="Center">
+                                          <Label Text="{loc:Translate Key=Sleep_Title}"
+                                                        FontSize="14"
+                                                        Opacity="0.7"/>
+                                          <Label Text="{Binding SleepSummary}"
+                                                        FontSize="24"
+                                                        FontAttributes="Bold"/>
+                                   </VerticalStackLayout>
+                                   <Button Grid.Column="2"
+                                                 Text="+"
+                                                 FontSize="24"
+                                                 WidthRequest="46"
+                                                 HeightRequest="46"
+                                           CornerRadius="23"
+                                                 Padding="0"
+                                                 VerticalOptions="Center"
+                                           Command="{Binding AddSleepCommand}"/>
+                            </Grid>
+                     </Border>
+
+                     <!-- Diapers -->
+                     <Border Padding="15"
+                                   StrokeThickness="1"
+                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
+                            <Border.StrokeShape>
+                                   <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                   <Grid.GestureRecognizers>
+                                          <TapGestureRecognizer Command="{Binding OpenDiapersCommand}"/>
+                                   </Grid.GestureRecognizers>
+                                   <Label Grid.Column="0"
+                                                 Text="🧷"
+                                                 FontSize="30"
+                                                 VerticalOptions="Center"/>
+                                   <VerticalStackLayout Grid.Column="1"
+                                                 Margin="15,0"
+                                                 VerticalOptions="Center">
+                                          <Label Text="{loc:Translate Key=Diaper_Title}"
+                                                        FontSize="14"
+                                                        Opacity="0.7"/>
+                                          <Label Text="{Binding DiaperSummary}"
+                                                        FontSize="24"
+                                                        FontAttributes="Bold"/>
+                                   </VerticalStackLayout>
+                                   <Button Grid.Column="2"
+                                                 Text="+"
+                                                 FontSize="24"
+                                                 WidthRequest="46"
+                                                 HeightRequest="46"
+                                           CornerRadius="23"
+                                                 Padding="0"
+                                                 VerticalOptions="Center"
+                                           Command="{Binding AddDiaperCommand}"/>
+                            </Grid>
+                     </Border>
               </VerticalStackLayout>
        </Grid>
 </ContentPage>

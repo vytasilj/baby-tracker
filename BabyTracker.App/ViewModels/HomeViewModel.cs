@@ -8,28 +8,41 @@ namespace BabyTracker.App.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
-    private readonly ChildRepository _repository;
+    private readonly ChildRepository _childRepository;
+    private readonly FeedingRepository _feedingRepository;
+    private readonly SleepRepository _sleepRepository;
+    private readonly DiaperRepository _diaperRepository;
     private readonly CurrentChildContext _childContext;
     private AgeDescription? _ageDescription;
 
-    [ObservableProperty]
-    private string _childName = "";
+    [ObservableProperty] private string _childName = "";
+    [ObservableProperty] private string _age = "";
+    [ObservableProperty] private string _themeIcon = ThemeService.GetIconForCurrentTheme();
 
-    [ObservableProperty]
-    private string _age = "";
-
-    [ObservableProperty]
-    private string _themeIcon = ThemeService.GetIconForCurrentTheme();
+    [ObservableProperty] private string _feedingSummary = "—";
+    [ObservableProperty] private string _sleepSummary = "—";
+    [ObservableProperty] private string _diaperSummary = "—";
 
     public event Action? SettingsRequested;
     public event Action? ChildrenRequested;
     public event Action? DiapersRequested;
     public event Action? FeedingRequested;
     public event Action? SleepRequested;
+    public event Action? AddDiaperRequested;
+    public event Action? AddFeedingRequested;
+    public event Action? AddSleepRequested;
 
-    public HomeViewModel(ChildRepository repository, CurrentChildContext childContext)
+    public HomeViewModel(
+        ChildRepository childRepository,
+        FeedingRepository feedingRepository,
+        SleepRepository sleepRepository,
+        DiaperRepository diaperRepository,
+        CurrentChildContext childContext)
     {
-        _repository = repository;
+        _childRepository = childRepository;
+        _feedingRepository = feedingRepository;
+        _sleepRepository = sleepRepository;
+        _diaperRepository = diaperRepository;
         _childContext = childContext;
 
         _ = RefreshAsync();
@@ -38,19 +51,38 @@ public partial class HomeViewModel : ObservableObject
         LocalizationResourceManager.Instance.PropertyChanged += (_, _) =>
         {
             if (_ageDescription is not null) Age = AgeFormatter.Format(_ageDescription);
+            _ = RefreshSummaryAsync(); // "hours"/"minutes" wording depends on the current language too
         };
     }
 
-    private async Task RefreshAsync()
+    public async Task RefreshAsync()
     {
         if (_childContext.ChildId is not { } childId) return;
 
-        var child = await _repository.GetByIdAsync(childId);
+        var child = await _childRepository.GetByIdAsync(childId);
         if (child is null) return;
 
         ChildName = child.Name;
         _ageDescription = AgeCalculator.Calculate(child.BirthDate, DateOnly.FromDateTime(DateTime.Today));
         Age = AgeFormatter.Format(_ageDescription);
+
+        await RefreshSummaryAsync();
+    }
+
+    public async Task RefreshSummaryAsync()
+    {
+        if (_childContext.ChildId is not { } childId) return;
+
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        var feedings = await _feedingRepository.GetAllAsync(childId);
+        var sleeps = await _sleepRepository.GetAllAsync(childId);
+        var diapers = await _diaperRepository.GetAllAsync(childId);
+
+        var summary = DailySummaryCalculator.Calculate(today, feedings, sleeps, diapers, DateTime.Now);
+
+        FeedingSummary = $"{summary.FeedingCount}×";
+        SleepSummary = SleepFormatter.FormatTotalHours(summary.SleepHours);
+        DiaperSummary = $"{summary.DiaperCount}×";
     }
 
     [RelayCommand]
@@ -65,4 +97,7 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand] private void OpenDiapers() => DiapersRequested?.Invoke();
     [RelayCommand] private void OpenFeeding() => FeedingRequested?.Invoke();
     [RelayCommand] private void OpenSleep() => SleepRequested?.Invoke();
+    [RelayCommand] private void AddDiaper() => AddDiaperRequested?.Invoke();
+    [RelayCommand] private void AddFeeding() => AddFeedingRequested?.Invoke();
+    [RelayCommand] private void AddSleep() => AddSleepRequested?.Invoke();
 }

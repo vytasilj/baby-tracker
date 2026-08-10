@@ -9,7 +9,7 @@ namespace BabyTracker.App.ViewModels;
 
 public record FeedingListItem(FeedingEntry Entry, string Summary);
 
-public partial class FeedingListViewModel(FeedingRepository repository, CurrentChildContext childContext) : ObservableObject
+public partial class FeedingListViewModel(EntryRepository<FeedingEntry> repository, CurrentChildContext childContext) : ObservableObject
 {
     public ObservableCollection<FeedingListItem> Entries { get; } = [];
 

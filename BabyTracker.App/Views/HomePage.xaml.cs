@@ -36,6 +36,7 @@ public partial class HomePage : ContentPage
             page.LoadEntry(null);
             await Navigation.PushAsync(page);
         };
+        viewModel.AllTrackersRequested += async () => await Navigation.PushAsync(services.GetRequiredService<AllTrackersPage>());
     }
 
     protected override void OnAppearing()

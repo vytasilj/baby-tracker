@@ -12,9 +12,11 @@ public static class ServiceCollectionExtensions
             options.UseSqlite($"Data Source={dbPath}"));
 
         services.AddSingleton<ChildRepository>();
-        services.AddSingleton<FeedingRepository>();
         services.AddSingleton<SleepRepository>();
-        services.AddSingleton<DiaperRepository>();
+        services.AddSingleton<EntryRepository<FeedingEntry>>();
+        services.AddSingleton<EntryRepository<DiaperEntry>>();
+        services.AddSingleton<EntryRepository<TemperatureEntry>>();
+        services.AddSingleton<EntryRepository<WeightEntry>>();
 
         return services;
     }
@@ -56,6 +58,19 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Views.SleepListPage>();
         services.AddTransient<ViewModels.SleepEntryViewModel>();
         services.AddTransient<Views.SleepEntryPage>();
+
+        services.AddTransient<ViewModels.TemperatureListViewModel>();
+        services.AddTransient<Views.TemperatureListPage>();
+        services.AddTransient<ViewModels.TemperatureEntryViewModel>();
+        services.AddTransient<Views.TemperatureEntryPage>();
+
+        services.AddTransient<ViewModels.WeightListViewModel>();
+        services.AddTransient<Views.WeightListPage>();
+        services.AddTransient<ViewModels.WeightEntryViewModel>();
+        services.AddTransient<Views.WeightEntryPage>();
+
+        services.AddTransient<ViewModels.AllTrackersViewModel>();
+        services.AddTransient<Views.AllTrackersPage>();
 
         return services;
     }

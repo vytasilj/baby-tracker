@@ -10,7 +10,7 @@ public record DiaperTypeOption(DiaperType Value, string Display);
 
 public partial class DiaperEntryViewModel : ObservableObject
 {
-    private readonly DiaperRepository _repository;
+    private readonly EntryRepository<DiaperEntry> _repository;
     private readonly CurrentChildContext _childContext;
     private Guid? _entryId;
 
@@ -38,9 +38,9 @@ public partial class DiaperEntryViewModel : ObservableObject
 
     public event Action? Completed;
 
-    public DiaperEntryViewModel(DiaperRepository repository, CurrentChildContext childContext)
+    public DiaperEntryViewModel(EntryRepository<DiaperEntry> repository, CurrentChildContext childContext)
     {
-        _repository = repository;
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _childContext = childContext;
 
         var loc = LocalizationResourceManager.Instance;

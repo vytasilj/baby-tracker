@@ -9,9 +9,9 @@ namespace BabyTracker.App.ViewModels;
 public partial class HomeViewModel : ObservableObject
 {
     private readonly ChildRepository _childRepository;
-    private readonly FeedingRepository _feedingRepository;
+    private readonly EntryRepository<FeedingEntry> _feedingRepository;
     private readonly SleepRepository _sleepRepository;
-    private readonly DiaperRepository _diaperRepository;
+    private readonly EntryRepository<DiaperEntry> _diaperRepository;
     private readonly CurrentChildContext _childContext;
     private AgeDescription? _ageDescription;
 
@@ -31,12 +31,13 @@ public partial class HomeViewModel : ObservableObject
     public event Action? AddDiaperRequested;
     public event Action? AddFeedingRequested;
     public event Action? AddSleepRequested;
+    public event Action? AllTrackersRequested;
 
     public HomeViewModel(
         ChildRepository childRepository,
-        FeedingRepository feedingRepository,
+        EntryRepository<FeedingEntry> feedingRepository,
         SleepRepository sleepRepository,
-        DiaperRepository diaperRepository,
+        EntryRepository<DiaperEntry> diaperRepository,
         CurrentChildContext childContext)
     {
         _childRepository = childRepository;
@@ -100,4 +101,5 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand] private void AddDiaper() => AddDiaperRequested?.Invoke();
     [RelayCommand] private void AddFeeding() => AddFeedingRequested?.Invoke();
     [RelayCommand] private void AddSleep() => AddSleepRequested?.Invoke();
+    [RelayCommand] private void OpenAllTrackers() => AllTrackersRequested?.Invoke();
 }

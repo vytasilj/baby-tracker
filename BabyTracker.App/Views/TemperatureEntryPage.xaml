@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:BabyTracker.App.Localization"
+             x:Class="BabyTracker.App.Views.TemperatureEntryPage"
+             Title="{loc:Translate Key=Temperature_Title}">
+    <VerticalStackLayout Padding="20"
+            Spacing="15">
+        <Label Text="{loc:Translate Key=Temperature_ValueLabel}"/>
+        <HorizontalStackLayout Spacing="10">
+            <Stepper Minimum="30"
+                    Maximum="43"
+                    Increment="0.1"
+                    Value="{Binding Value}"/>
+            <Label Text="{Binding Value, StringFormat='{0:0.0} °C'}"
+                    FontSize="22"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <Label Text="{loc:Translate Key=Common_TimeLabel}"/>
+        <HorizontalStackLayout Spacing="10">
+            <DatePicker Date="{Binding EntryDate}"/>
+            <TimePicker Time="{Binding EntryTime}"/>
+        </HorizontalStackLayout>
+
+        <Label Text="{loc:Translate Key=Common_NotesLabel}"/>
+        <Entry Text="{Binding Notes}"/>
+
+        <Button Text="{loc:Translate Key=Common_SaveButton}"
+                Command="{Binding SaveCommand}"/>
+        <Button Text="{loc:Translate Key=Common_DeleteButton}"
+                Command="{Binding DeleteCommand}"
+                IsVisible="{Binding IsEditing}"
+                BackgroundColor="IndianRed"/>
+        <ActivityIndicator IsRunning="{Binding IsSaving}"
+                IsVisible="{Binding IsSaving}"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -9,7 +9,7 @@ public class DiaperRepositoryTests : IDisposable
     [Fact]
     public async Task AddAsync_ThenGetAllAsync_ReturnsTheEntry()
     {
-        var repo = new DiaperRepository(_factory);
+        var repo = new EntryRepository<DiaperEntry>(_factory);
         var childId = Guid.NewGuid();
 
         await repo.AddAsync(new DiaperEntry { ChildId = childId, OccurredAt = DateTime.UtcNow, Type = DiaperType.Both });
@@ -20,7 +20,7 @@ public class DiaperRepositoryTests : IDisposable
     [Fact]
     public async Task DeleteAsync_HidesEntryFromGetAllAsync()
     {
-        var repo = new DiaperRepository(_factory);
+        var repo = new EntryRepository<DiaperEntry>(_factory);
         var childId = Guid.NewGuid();
         var entry = await repo.AddAsync(new DiaperEntry { ChildId = childId, OccurredAt = DateTime.UtcNow, Type = DiaperType.Wet });
 
@@ -32,7 +32,7 @@ public class DiaperRepositoryTests : IDisposable
     [Fact]
     public async Task GetAllAsync_OnlyReturnsEntriesForRequestedChild()
     {
-        var repo = new DiaperRepository(_factory);
+        var repo = new EntryRepository<DiaperEntry>(_factory);
         var childA = Guid.NewGuid();
         var childB = Guid.NewGuid();
 

@@ -10,7 +10,7 @@ public class FeedingRepositoryTests : IDisposable
     [Fact]
     public async Task AddAsync_ThenGetAllAsync_ReturnsTheEntry()
     {
-        var repo = new FeedingRepository(_factory);
+        var repo = new EntryRepository<FeedingEntry>(_factory);
         var childId = Guid.NewGuid();
 
         await repo.AddAsync(new FeedingEntry { ChildId = childId, OccurredAt = DateTime.UtcNow, Type = FeedingType.Bottle, AmountMl = 120 });
@@ -23,7 +23,7 @@ public class FeedingRepositoryTests : IDisposable
     [Fact]
     public async Task DeleteAsync_IsSoftDelete_EntryHiddenButNotRemoved()
     {
-        var repo = new FeedingRepository(_factory);
+        var repo = new EntryRepository<FeedingEntry>(_factory);
         var childId = Guid.NewGuid();
         var entry = await repo.AddAsync(new FeedingEntry { ChildId = childId, OccurredAt = DateTime.UtcNow, Type = FeedingType.Bottle });
 
@@ -40,7 +40,7 @@ public class FeedingRepositoryTests : IDisposable
     [Fact]
     public async Task GetAllAsync_OnlyReturnsEntriesForRequestedChild()
     {
-        var repo = new FeedingRepository(_factory);
+        var repo = new EntryRepository<FeedingEntry>(_factory);
         var childA = Guid.NewGuid();
         var childB = Guid.NewGuid();
 
@@ -56,7 +56,7 @@ public class FeedingRepositoryTests : IDisposable
     [Fact]
     public async Task UpdateAsync_PersistsChangesAndBumpsUpdatedAt()
     {
-        var repo = new FeedingRepository(_factory);
+        var repo = new EntryRepository<FeedingEntry>(_factory);
         var childId = Guid.NewGuid();
         var entry = await repo.AddAsync(new FeedingEntry { ChildId = childId, OccurredAt = DateTime.UtcNow, Type = FeedingType.Bottle, AmountMl = 100 });
         var originalUpdatedAt = entry.UpdatedAt;

@@ -234,4 +234,9 @@
   <data name="Children_DeleteConfirmMessage" xml:space="preserve"><value>This will delete {0} and cannot be undone.</value></data>
   <data name="Common_Yes" xml:space="preserve"><value>Yes</value></data>
   <data name="Common_No" xml:space="preserve"><value>No</value></data>
+  <data name="Temperature_Title" xml:space="preserve"><value>Temperature</value></data>
+  <data name="Temperature_ValueLabel" xml:space="preserve"><value>Temperature</value></data>
+  <data name="Weight_Title" xml:space="preserve"><value>Weight</value></data>
+  <data name="Weight_ValueLabel" xml:space="preserve"><value>Weight</value></data>
+  <data name="AllTrackers_Title" xml:space="preserve"><value>Trackers</value></data>
 </root>

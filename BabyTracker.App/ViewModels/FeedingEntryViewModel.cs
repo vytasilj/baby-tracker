@@ -11,7 +11,7 @@ public record BreastSideOption(BreastSide Value, string Display);
 
 public partial class FeedingEntryViewModel : ObservableObject
 {
-    private readonly FeedingRepository _repository;
+    private readonly EntryRepository<FeedingEntry> _repository;
     private readonly CurrentChildContext _childContext;
     private Guid? _entryId;
 
@@ -51,9 +51,9 @@ public partial class FeedingEntryViewModel : ObservableObject
 
     public event Action? Completed;
 
-    public FeedingEntryViewModel(FeedingRepository repository, CurrentChildContext childContext)
+    public FeedingEntryViewModel(EntryRepository<FeedingEntry> repository, CurrentChildContext childContext)
     {
-        _repository = repository;
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _childContext = childContext;
 
         var loc = LocalizationResourceManager.Instance;

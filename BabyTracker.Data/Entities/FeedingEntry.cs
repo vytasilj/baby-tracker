@@ -3,10 +3,8 @@ namespace BabyTracker.Data;
 public enum FeedingType { Breast, Bottle, Solid }
 public enum BreastSide { Left, Right, Both }
 
-public class FeedingEntry : SyncableEntity
+public class FeedingEntry : ChildScopedEntity
 {
-    public Guid ChildId { get; set; }
-    public DateTime OccurredAt { get; set; }
     public FeedingType Type { get; set; }
     public BreastSide? Side { get; set; }
     public int? AmountMl { get; set; }

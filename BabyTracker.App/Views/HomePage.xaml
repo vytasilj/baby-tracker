@@ -10,6 +10,10 @@
               <HorizontalStackLayout Grid.Row="0"
                             HorizontalOptions="End"
                             Spacing="8">
+                     <Button Text="📋"
+                                   Command="{Binding OpenAllTrackersCommand}"
+                                   WidthRequest="50"
+                                   FontSize="20"/>
                      <Button Text="👶"
                                    Command="{Binding OpenChildrenCommand}"
                                    WidthRequest="50"

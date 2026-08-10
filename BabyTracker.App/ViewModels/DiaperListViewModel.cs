@@ -6,7 +6,7 @@ using BabyTracker.App.Services;
 
 namespace BabyTracker.App.ViewModels;
 
-public partial class DiaperListViewModel(DiaperRepository repository, CurrentChildContext childContext) : ObservableObject
+public partial class DiaperListViewModel(EntryRepository<DiaperEntry> repository, CurrentChildContext childContext) : ObservableObject
 {
     public ObservableCollection<DiaperEntry> Entries { get; } = [];
 

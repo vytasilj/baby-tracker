@@ -10,5 +10,10 @@
         <Picker ItemsSource="{Binding Languages}"
                 ItemDisplayBinding="{Binding DisplayName}"
                 SelectedItem="{Binding SelectedLanguage}"/>
+
+        <Label Text="{loc:Translate Key=Settings_UnitsLabel}"/>
+        <Picker ItemsSource="{Binding UnitSystems}"
+                ItemDisplayBinding="{Binding Display}"
+                SelectedItem="{Binding SelectedUnitSystem}"/>
     </VerticalStackLayout>
 </ContentPage>

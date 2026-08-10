@@ -3,12 +3,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BabyTracker.Data;
 using BabyTracker.App.Services;
+using BabyTracker.App.Localization;
 
 namespace BabyTracker.App.ViewModels;
 
 public record TemperatureListItem(TemperatureEntry Entry, string Display);
 
-public partial class TemperatureListViewModel(EntryRepository<TemperatureEntry> repository, CurrentChildContext childContext) : ObservableObject
+public partial class TemperatureListViewModel(EntryRepository<TemperatureEntry> repository, CurrentChildContext childContext, UnitPreferenceService unitPreference) : ObservableObject
 {
     public ObservableCollection<TemperatureListItem> Entries { get; } = [];
 
@@ -23,7 +24,7 @@ public partial class TemperatureListViewModel(EntryRepository<TemperatureEntry> 
         Entries.Clear();
         foreach (var e in entries)
         {
-            Entries.Add(new TemperatureListItem(e, $"{e.ValueCelsius:0.0} °C"));
+            Entries.Add(new TemperatureListItem(e, TemperatureFormatter.FormatForDisplay(e.ValueCelsius, unitPreference.Current, LocalizationResourceManager.Instance.NumberFormatCulture)));
         }
     }
 

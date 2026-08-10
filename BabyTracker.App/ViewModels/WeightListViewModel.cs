@@ -3,15 +3,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BabyTracker.Data;
 using BabyTracker.App.Services;
+using BabyTracker.App.Localization;
 
 namespace BabyTracker.App.ViewModels;
 
 public record WeightListItem(WeightEntry Entry, string Display);
 
-public partial class WeightListViewModel(EntryRepository<WeightEntry> repository, CurrentChildContext childContext) : ObservableObject
+public partial class WeightListViewModel(EntryRepository<WeightEntry> repository, CurrentChildContext childContext, UnitPreferenceService unitPreference) : ObservableObject
 {
     public ObservableCollection<WeightListItem> Entries { get; } = [];
-
     public event Action<WeightEntry?>? EditRequested;
 
     [RelayCommand]
@@ -23,7 +23,7 @@ public partial class WeightListViewModel(EntryRepository<WeightEntry> repository
         Entries.Clear();
         foreach (var e in entries)
         {
-            Entries.Add(new WeightListItem(e, $"{e.WeightKg:0.000} kg"));
+            Entries.Add(new WeightListItem(e, WeightFormatter.FormatForDisplay(e.WeightKg, unitPreference.Current, LocalizationResourceManager.Instance.NumberFormatCulture)));
         }
     }
 

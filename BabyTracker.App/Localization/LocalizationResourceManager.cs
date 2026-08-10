@@ -22,6 +22,15 @@ public class LocalizationResourceManager : INotifyPropertyChanged
 
     public string this[string key] => _resourceManager.GetString(key, _currentCulture) ?? key;
 
+    public CultureInfo NumberFormatCulture
+    {
+        get
+        {
+            try { return new CultureInfo(CurrentLanguageCode); }
+            catch (CultureNotFoundException) { return CultureInfo.InvariantCulture; }
+        }
+    }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     // Called once at startup, mirrors ThemeService.ApplySavedTheme().

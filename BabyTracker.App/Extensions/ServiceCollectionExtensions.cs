@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<Services.CurrentChildContext>();
         services.AddSingleton<Services.ChildDeletionService>();
+        services.AddSingleton<Services.UnitPreferenceService>();
         return services;
     }
 

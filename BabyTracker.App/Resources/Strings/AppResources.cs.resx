@@ -239,4 +239,7 @@
   <data name="Weight_Title" xml:space="preserve"><value>Váha</value></data>
   <data name="Weight_ValueLabel" xml:space="preserve"><value>Váha</value></data>
   <data name="AllTrackers_Title" xml:space="preserve"><value>Trackery</value></data>
+  <data name="Settings_UnitsLabel" xml:space="preserve"><value>Jednotky</value></data>
+  <data name="Settings_Unit_Metric" xml:space="preserve"><value>Metrické (°C, kg)</value></data>
+  <data name="Settings_Unit_Imperial" xml:space="preserve"><value>Imperiální (°F, lb)</value></data>
 </root>

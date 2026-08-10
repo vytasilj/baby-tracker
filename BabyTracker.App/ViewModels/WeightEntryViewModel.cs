@@ -6,21 +6,32 @@ using BabyTracker.App.Services;
 
 namespace BabyTracker.App.ViewModels;
 
-public partial class WeightEntryViewModel(EntryRepository<WeightEntry> repository, CurrentChildContext childContext) : ObservableObject
+public partial class WeightEntryViewModel : ObservableObject
 {
+    private readonly EntryRepository<WeightEntry> _repository;
+    private readonly CurrentChildContext _childContext;
+    private readonly UnitPreferenceService _unitPreference;
     private Guid? _entryId;
     private DateTime _createdAt;
 
     [ObservableProperty] private DateTime _entryDate = DateTime.Today;
     [ObservableProperty] private TimeSpan _entryTime = DateTime.Now.TimeOfDay;
-    [ObservableProperty] private double _value = 3.5;
+    [ObservableProperty] private double _value;
     [ObservableProperty] private string _notes = "";
     [ObservableProperty] private bool _isEditing;
     [ObservableProperty] private bool _isSaving;
 
-    public string UnitLabel => "kg";
+    public string UnitLabel => WeightFormatter.UnitLabel(_unitPreference.Current);
 
     public event Action? Completed;
+
+    public WeightEntryViewModel(EntryRepository<WeightEntry> repository, CurrentChildContext childContext, UnitPreferenceService unitPreference)
+    {
+        _repository = repository;
+        _childContext = childContext;
+        _unitPreference = unitPreference;
+        Value = WeightFormatter.ToDisplayValue(3.5m, _unitPreference.Current);
+    }
 
     public void LoadEntry(WeightEntry? entry)
     {
@@ -30,7 +41,7 @@ public partial class WeightEntryViewModel(EntryRepository<WeightEntry> repositor
             IsEditing = false;
             EntryDate = DateTime.Today;
             EntryTime = DateTime.Now.TimeOfDay;
-            Value = 3.5;
+            Value = WeightFormatter.ToDisplayValue(3.5m, _unitPreference.Current);
             Notes = "";
             return;
         }
@@ -40,24 +51,24 @@ public partial class WeightEntryViewModel(EntryRepository<WeightEntry> repositor
         IsEditing = true;
         EntryDate = entry.OccurredAt.Date;
         EntryTime = entry.OccurredAt.TimeOfDay;
-        Value = (double)entry.WeightKg;
+        Value = WeightFormatter.ToDisplayValue(entry.WeightKg, _unitPreference.Current);
         Notes = entry.Notes ?? "";
     }
 
     [RelayCommand]
     private async Task Save()
     {
-        if (childContext.ChildId is not { } childId) return;
+        if (_childContext.ChildId is not { } childId) return;
 
         IsSaving = true;
         try
         {
             var occurredAt = EntryDate.Date + EntryTime;
-            var kg = (decimal)Value;
+            var kg = WeightFormatter.ToCanonicalKg(Value, _unitPreference.Current);
 
             if (_entryId is { } id)
             {
-                await repository.UpdateAsync(new WeightEntry
+                await _repository.UpdateAsync(new WeightEntry
                 {
                     Id = id,
                     ChildId = childId,
@@ -69,7 +80,7 @@ public partial class WeightEntryViewModel(EntryRepository<WeightEntry> repositor
             }
             else
             {
-                await repository.AddAsync(new WeightEntry
+                await _repository.AddAsync(new WeightEntry
                 {
                     ChildId = childId,
                     OccurredAt = occurredAt,
@@ -86,7 +97,7 @@ public partial class WeightEntryViewModel(EntryRepository<WeightEntry> repositor
     [RelayCommand]
     private async Task Delete()
     {
-        if (_entryId is { } id) await repository.DeleteAsync(id);
+        if (_entryId is { } id) await _repository.DeleteAsync(id);
         await NotificationService.ShowAsync(LocalizationResourceManager.Instance["Common_Deleted"]);
         Completed?.Invoke();
     }

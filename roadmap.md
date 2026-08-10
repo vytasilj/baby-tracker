@@ -11,8 +11,9 @@
 - [x] Multi-child support in the UI (data model already has ChildId everywhere, but there's no way to add/switch between children yet)
 
 ## Phase 2: Extended trackers
-- [ ] Temperature
-- [ ] Weight
+- [x] Temperature
+- [x] Weight
+- [x] Unit system (Metric/Imperial) with centralized, testable formatters
 - [ ] Pumping (odsávání)
 - [ ] Supplements (Vitamin D, probiotics, anti-gas drops, ...)
 - [ ] Mom's sleep (properly aggregated, not a single circle)

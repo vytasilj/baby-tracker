@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<EntryRepository<TemperatureEntry>>();
         services.AddSingleton<EntryRepository<WeightEntry>>();
         services.AddSingleton<EntryRepository<PumpingEntry>>();
+        services.AddSingleton<SupplementRepository>();
 
         return services;
     }
@@ -78,6 +79,14 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Views.PumpingListPage>();
         services.AddTransient<ViewModels.PumpingEntryViewModel>();
         services.AddTransient<Views.PumpingEntryPage>();
+
+        services.AddTransient<ViewModels.SupplementListViewModel>();
+        services.AddTransient<Views.SupplementListPage>();
+        services.AddTransient<ViewModels.SupplementEntryViewModel>();
+        services.AddTransient<Views.SupplementEntryPage>();
+
+        services.AddTransient<ViewModels.ManageSupplementsViewModel>();
+        services.AddTransient<Views.ManageSupplementsPage>();
 
         return services;
     }

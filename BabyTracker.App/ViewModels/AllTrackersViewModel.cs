@@ -4,7 +4,7 @@ using BabyTracker.App.Localization;
 
 namespace BabyTracker.App.ViewModels;
 
-public enum TrackerKind { Feeding, Sleep, Diaper, Temperature, Weight, Pumping }
+public enum TrackerKind { Feeding, Sleep, Diaper, Temperature, Weight, Pumping, Supplement }
 
 public record TrackerListItem(TrackerKind Kind, string Icon, string Label);
 
@@ -25,6 +25,7 @@ public partial class AllTrackersViewModel : ObservableObject
             new(TrackerKind.Temperature, "🌡️", loc["Temperature_Title"]),
             new(TrackerKind.Weight, "⚖️", loc["Weight_Title"]),
             new(TrackerKind.Pumping, "🤱", loc["Pumping_Title"]),
+            new(TrackerKind.Supplement, "💊", loc["Supplement_Title"]),
         ];
     }
 

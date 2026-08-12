@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using BabyTracker.App.Localization;
 using BabyTracker.App.Services;
 using BabyTracker.Data;
+using CommunityToolkit.Mvvm.Input;
 
 namespace BabyTracker.App.ViewModels;
 
@@ -16,6 +17,7 @@ public partial class SettingsViewModel : ObservableObject
 
     [ObservableProperty] private SupportedLanguage _selectedLanguage;
     [ObservableProperty] private UnitSystemOption _selectedUnitSystem;
+    public event Action? ManageSupplementsRequested;
 
     public SettingsViewModel(UnitPreferenceService unitPreference)
     {
@@ -39,4 +41,6 @@ public partial class SettingsViewModel : ObservableObject
     }
 
     partial void OnSelectedUnitSystemChanged(UnitSystemOption value) => _unitPreference.Set(value.Value);
+
+    [RelayCommand] private void OpenManageSupplements() => ManageSupplementsRequested?.Invoke();
 }

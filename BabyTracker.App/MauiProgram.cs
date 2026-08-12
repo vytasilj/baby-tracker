@@ -36,6 +36,9 @@ public static class MauiProgram
 			var dbFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<BabyTrackerDbContext>>();
 			using var db = dbFactory.CreateDbContext();
 			db.Database.Migrate();
+
+			var supplementRepository = scope.ServiceProvider.GetRequiredService<SupplementRepository>();
+			supplementRepository.EnsureBuiltInDefinitionsAsync().GetAwaiter().GetResult();
 		}
 
 		return app;

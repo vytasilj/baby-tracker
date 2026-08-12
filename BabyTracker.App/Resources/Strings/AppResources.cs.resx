@@ -243,4 +243,15 @@
   <data name="Settings_Unit_Metric" xml:space="preserve"><value>Metrické (°C, kg)</value></data>
   <data name="Settings_Unit_Imperial" xml:space="preserve"><value>Imperiální (°F, lb)</value></data>
   <data name="Pumping_Title" xml:space="preserve"><value>Odsávání</value></data>
+  <data name="Supplement_Title" xml:space="preserve"><value>Doplňky</value></data>
+  <data name="Supplement_PickLabel" xml:space="preserve"><value>Co bylo podáno</value></data>
+  <data name="Supplement_NewCustomPlaceholder" xml:space="preserve"><value>Přidat vlastní...</value></data>
+  <data name="Supplement_VitaminD" xml:space="preserve"><value>Vitamín D</value></data>
+  <data name="Supplement_Probiotics" xml:space="preserve"><value>Probiotika</value></data>
+  <data name="Supplement_AntiGasDrops" xml:space="preserve"><value>Kapky proti nadýmání</value></data>
+  <data name="Supplement_HideConfirmTitle" xml:space="preserve"><value>Skrýt doplněk?</value></data>
+  <data name="Supplement_HideConfirmMessage" xml:space="preserve"><value>{0} se přestane zobrazovat v seznamu. Minulé záznamy zůstanou beze změny.</value></data>
+  <data name="ManageSupplements_Title" xml:space="preserve"><value>Správa doplňků</value></data>
+  <data name="ManageSupplements_HideButton" xml:space="preserve"><value>Skrýt</value></data>
+  <data name="ManageSupplements_RestoreButton" xml:space="preserve"><value>Obnovit</value></data>
 </root>

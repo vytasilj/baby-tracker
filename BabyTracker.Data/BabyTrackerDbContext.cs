@@ -12,6 +12,8 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
     public DbSet<TemperatureEntry> TemperatureEntries => Set<TemperatureEntry>();
     public DbSet<WeightEntry> WeightEntries => Set<WeightEntry>();
     public DbSet<PumpingEntry> PumpingEntries => Set<PumpingEntry>();
+    public DbSet<SupplementDefinition> SupplementDefinitions => Set<SupplementDefinition>();
+    public DbSet<SupplementEntry> SupplementEntries => Set<SupplementEntry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,5 +22,8 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
             .IsUnique();
         modelBuilder.Entity<TemperatureEntry>().Property(e => e.ValueCelsius).HasPrecision(4, 1);
         modelBuilder.Entity<WeightEntry>().Property(e => e.WeightKg).HasPrecision(5, 3);
+        modelBuilder.Entity<SupplementEntry>()
+            .HasMany(e => e.Supplements)
+            .WithMany();
     }
 }

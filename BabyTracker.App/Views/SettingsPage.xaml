@@ -15,5 +15,7 @@
         <Picker ItemsSource="{Binding UnitSystems}"
                 ItemDisplayBinding="{Binding Display}"
                 SelectedItem="{Binding SelectedUnitSystem}"/>
-    </VerticalStackLayout>
+        <Button Text="{loc:Translate Key=ManageSupplements_Title}"
+                Command="{Binding OpenManageSupplementsCommand}"/>
+        </VerticalStackLayout>
 </ContentPage>

@@ -11,6 +11,7 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
     public DbSet<DiaperEntry> DiaperEntries => Set<DiaperEntry>();
     public DbSet<TemperatureEntry> TemperatureEntries => Set<TemperatureEntry>();
     public DbSet<WeightEntry> WeightEntries => Set<WeightEntry>();
+    public DbSet<PumpingEntry> PumpingEntries => Set<PumpingEntry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -242,4 +242,5 @@
   <data name="Settings_UnitsLabel" xml:space="preserve"><value>Jednotky</value></data>
   <data name="Settings_Unit_Metric" xml:space="preserve"><value>Metrické (°C, kg)</value></data>
   <data name="Settings_Unit_Imperial" xml:space="preserve"><value>Imperiální (°F, lb)</value></data>
+  <data name="Pumping_Title" xml:space="preserve"><value>Odsávání</value></data>
 </root>

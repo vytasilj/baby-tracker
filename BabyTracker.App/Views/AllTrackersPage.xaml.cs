@@ -24,6 +24,7 @@ public partial class AllTrackersPage : ContentPage
             TrackerKind.Diaper => _services.GetRequiredService<DiaperListPage>(),
             TrackerKind.Temperature => _services.GetRequiredService<TemperatureListPage>(),
             TrackerKind.Weight => _services.GetRequiredService<WeightListPage>(),
+            TrackerKind.Pumping => _services.GetRequiredService<PumpingListPage>(),
             _ => throw new NotSupportedException()
         };
         await Navigation.PushAsync(page);

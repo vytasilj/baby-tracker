@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<EntryRepository<DiaperEntry>>();
         services.AddSingleton<EntryRepository<TemperatureEntry>>();
         services.AddSingleton<EntryRepository<WeightEntry>>();
+        services.AddSingleton<EntryRepository<PumpingEntry>>();
 
         return services;
     }
@@ -72,6 +73,11 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<ViewModels.AllTrackersViewModel>();
         services.AddTransient<Views.AllTrackersPage>();
+
+        services.AddTransient<ViewModels.PumpingListViewModel>();
+        services.AddTransient<Views.PumpingListPage>();
+        services.AddTransient<ViewModels.PumpingEntryViewModel>();
+        services.AddTransient<Views.PumpingEntryPage>();
 
         return services;
     }

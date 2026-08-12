@@ -19,7 +19,7 @@ public static class FeedingFormatter
         };
     }
 
-    private static string FormatSide(BreastSide side)
+    public static string FormatSide(BreastSide side)
     {
         var loc = LocalizationResourceManager.Instance;
         return side switch

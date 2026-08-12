@@ -15,7 +15,7 @@
 - [x] Weight
 - [x] Unit system (Metric/Imperial) with centralized, testable formatters
 - [x] Pumping (odsávání)
-- [ ] Supplements (Vitamin D, probiotics, anti-gas drops, ...)
+- [x] Supplements (Vitamin D, probiotics, anti-gas drops, ...)
 - [ ] Mom's sleep (properly aggregated, not a single circle)
 - [ ] Per-tracker enable/disable in Settings (TrackerSetting entity already exists, not wired to any UI yet)
 

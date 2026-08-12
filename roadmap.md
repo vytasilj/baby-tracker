@@ -40,5 +40,10 @@
 - [ ] Signing configuration
 - [ ] Store listing content
 
+## Future investigations (not committed, just ideas to check later)
+- [ ] Pixel Pro temperature sensor via Health Connect: user measures with Google's native "Thermometer" app, which writes the reading into Health Connect; our app could then read it with the user's consent via
+      androidx.health.connect.client. Confirmed the native Android library exists and is open source. Not yet confirmed: whether a maintained .NET/MAUI binding package exists,
+      or whether we'd need to write a custom Android Binding Library ourselves — meaningfully more work than a typical NuGet integration. Investigate properly before committing.
+
 ---
 *Update this file whenever a phase item is completed — check it off in the same commit as the feature, so this file always reflects reality, not memory.*

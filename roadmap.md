@@ -41,9 +41,20 @@
 - [ ] Store listing content
 
 ## Future investigations (not committed, just ideas to check later)
-- [ ] Pixel Pro temperature sensor via Health Connect: user measures with Google's native "Thermometer" app, which writes the reading into Health Connect; our app could then read it with the user's consent via
-      androidx.health.connect.client. Confirmed the native Android library exists and is open source. Not yet confirmed: whether a maintained .NET/MAUI binding package exists,
-      or whether we'd need to write a custom Android Binding Library ourselves — meaningfully more work than a typical NuGet integration. Investigate properly before committing.
+- [ ] Pixel Pro temperature sensor via Health Connect: user measures with Google's
+      native "Thermometer" app, which writes the reading into Health Connect; our app
+      could then read it with the user's consent. Found a viable, actively maintained
+      .NET MAUI package: Shiny.Health (github.com/shinyorg/health, NuGet: Shiny.Health) —
+      has explicit DataType.BodyTemperature support with a working GetBodyTemperature()
+      API for both Android Health Connect and iOS HealthKit. (Compared against
+      Kebechet/Maui.Health, which lists body temperature as platform-supported but not
+      yet wrapped in its own library — Shiny.Health is the better fit.) Setup involves
+      Android manifest permissions + an activity-alias for Android 14+, documented in
+      the package README. Not yet tried hands-on — do a small isolated spike before
+      committing to build this into the real app.
+      Note for Play Store prep (Phase 6): apps reading health data must fill in the
+      "Health data collection and use" and "Data retention policy" sections in Play
+      Console's Data Safety form, regardless of which package we use.
 
 ---
 *Update this file whenever a phase item is completed — check it off in the same commit as the feature, so this file always reflects reality, not memory.*

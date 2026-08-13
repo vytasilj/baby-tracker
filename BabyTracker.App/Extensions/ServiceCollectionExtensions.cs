@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<EntryRepository<WeightEntry>>();
         services.AddSingleton<EntryRepository<PumpingEntry>>();
         services.AddSingleton<SupplementRepository>();
+        services.AddSingleton<MomSleepRepository>();
 
         return services;
     }
@@ -87,6 +88,11 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<ViewModels.ManageSupplementsViewModel>();
         services.AddTransient<Views.ManageSupplementsPage>();
+
+        services.AddTransient<ViewModels.MomSleepListViewModel>();
+        services.AddTransient<Views.MomSleepListPage>();
+        services.AddTransient<ViewModels.MomSleepEntryViewModel>();
+        services.AddTransient<Views.MomSleepEntryPage>();
 
         return services;
     }

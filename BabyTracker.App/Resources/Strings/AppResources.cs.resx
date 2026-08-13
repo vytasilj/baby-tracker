@@ -254,4 +254,5 @@
   <data name="ManageSupplements_Title" xml:space="preserve"><value>Správa doplňků</value></data>
   <data name="ManageSupplements_HideButton" xml:space="preserve"><value>Skrýt</value></data>
   <data name="ManageSupplements_RestoreButton" xml:space="preserve"><value>Obnovit</value></data>
+  <data name="MomSleep_Title" xml:space="preserve"><value>Spánek maminky</value></data>
 </root>

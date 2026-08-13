@@ -17,21 +17,8 @@ public static class DailySummaryCalculator
         var feedingCount = feedings.Count(f => f.OccurredAt >= dayStart && f.OccurredAt < dayEnd);
         var diaperCount = diapers.Count(d => d.OccurredAt >= dayStart && d.OccurredAt < dayEnd);
 
-        var sleepHours = sleeps
-            .Select(s => OverlapHours(s.StartTime, s.EndTime ?? now, dayStart, dayEnd))
-            .Sum();
+        var sleepHours = SleepHoursCalculator.TotalHoursForDay(day, sleeps.Select(s => (s.StartTime, s.EndTime)), now);
 
         return new DailySummary(feedingCount, Math.Round(sleepHours, 1), diaperCount);
-    }
-
-    // A sleep entry might start before midnight and end after it (or still be ongoing) —
-    // this returns only the portion of the entry that actually falls within [dayStart, dayEnd),
-    // so a night's sleep is correctly split across the two days it spans.
-    private static double OverlapHours(DateTime start, DateTime end, DateTime dayStart, DateTime dayEnd)
-    {
-        var overlapStart = start > dayStart ? start : dayStart;
-        var overlapEnd = end < dayEnd ? end : dayEnd;
-        var overlap = overlapEnd - overlapStart;
-        return overlap > TimeSpan.Zero ? overlap.TotalHours : 0;
     }
 }

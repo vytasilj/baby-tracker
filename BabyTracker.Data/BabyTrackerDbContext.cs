@@ -14,6 +14,7 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
     public DbSet<PumpingEntry> PumpingEntries => Set<PumpingEntry>();
     public DbSet<SupplementDefinition> SupplementDefinitions => Set<SupplementDefinition>();
     public DbSet<SupplementEntry> SupplementEntries => Set<SupplementEntry>();
+    public DbSet<MomSleepEntry> MomSleepEntries => Set<MomSleepEntry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

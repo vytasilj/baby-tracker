@@ -254,4 +254,5 @@
   <data name="ManageSupplements_Title" xml:space="preserve"><value>Manage supplements</value></data>
   <data name="ManageSupplements_HideButton" xml:space="preserve"><value>Hide</value></data>
   <data name="ManageSupplements_RestoreButton" xml:space="preserve"><value>Restore</value></data>
+  <data name="MomSleep_Title" xml:space="preserve"><value>Mom's Sleep</value></data>
 </root>

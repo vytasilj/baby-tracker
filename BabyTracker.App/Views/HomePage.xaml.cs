@@ -37,6 +37,13 @@ public partial class HomePage : ContentPage
             await Navigation.PushAsync(page);
         };
         viewModel.AllTrackersRequested += async () => await Navigation.PushAsync(services.GetRequiredService<AllTrackersPage>());
+        viewModel.MomSleepRequested += async () => await Navigation.PushAsync(services.GetRequiredService<MomSleepListPage>());
+        viewModel.AddMomSleepRequested += async () =>
+        {
+            var page = services.GetRequiredService<MomSleepEntryPage>();
+            page.LoadEntry(null);
+            await Navigation.PushAsync(page);
+        };
     }
 
     protected override void OnAppearing()

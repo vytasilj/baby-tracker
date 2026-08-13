@@ -13,6 +13,7 @@ public partial class HomeViewModel : ObservableObject
     private readonly SleepRepository _sleepRepository;
     private readonly EntryRepository<DiaperEntry> _diaperRepository;
     private readonly CurrentChildContext _childContext;
+    private readonly MomSleepRepository _momSleepRepository;
     private AgeDescription? _ageDescription;
 
     [ObservableProperty] private string _childName = "";
@@ -22,6 +23,7 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty] private string _feedingSummary = "—";
     [ObservableProperty] private string _sleepSummary = "—";
     [ObservableProperty] private string _diaperSummary = "—";
+    [ObservableProperty] private string _momSleepSummary = "—";
 
     public event Action? SettingsRequested;
     public event Action? ChildrenRequested;
@@ -32,19 +34,23 @@ public partial class HomeViewModel : ObservableObject
     public event Action? AddFeedingRequested;
     public event Action? AddSleepRequested;
     public event Action? AllTrackersRequested;
+    public event Action? MomSleepRequested;
+    public event Action? AddMomSleepRequested;
 
     public HomeViewModel(
         ChildRepository childRepository,
         EntryRepository<FeedingEntry> feedingRepository,
         SleepRepository sleepRepository,
         EntryRepository<DiaperEntry> diaperRepository,
-        CurrentChildContext childContext)
+        CurrentChildContext childContext,
+        MomSleepRepository momSleepRepository)
     {
         _childRepository = childRepository;
         _feedingRepository = feedingRepository;
         _sleepRepository = sleepRepository;
         _diaperRepository = diaperRepository;
         _childContext = childContext;
+        _momSleepRepository = momSleepRepository;
 
         _ = RefreshAsync();
         _childContext.Changed += async () => await RefreshAsync();
@@ -81,9 +87,13 @@ public partial class HomeViewModel : ObservableObject
 
         var summary = DailySummaryCalculator.Calculate(today, feedings, sleeps, diapers, DateTime.Now);
 
+        var momSleeps = await _momSleepRepository.GetAllAsync();
+        var momSleepHours = SleepHoursCalculator.TotalHoursForDay(today, momSleeps.Select(s => (s.StartTime, s.EndTime)), DateTime.Now);
+
         FeedingSummary = $"{summary.FeedingCount}×";
         SleepSummary = SleepFormatter.FormatTotalHours(summary.SleepHours);
         DiaperSummary = $"{summary.DiaperCount}×";
+        MomSleepSummary = SleepFormatter.FormatTotalHours(momSleepHours);
     }
 
     [RelayCommand]
@@ -102,4 +112,6 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand] private void AddFeeding() => AddFeedingRequested?.Invoke();
     [RelayCommand] private void AddSleep() => AddSleepRequested?.Invoke();
     [RelayCommand] private void OpenAllTrackers() => AllTrackersRequested?.Invoke();
+    [RelayCommand] private void OpenMomSleep() => MomSleepRequested?.Invoke();
+    [RelayCommand] private void AddMomSleep() => AddMomSleepRequested?.Invoke();
 }

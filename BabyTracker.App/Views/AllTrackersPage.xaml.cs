@@ -26,6 +26,7 @@ public partial class AllTrackersPage : ContentPage
             TrackerKind.Weight => _services.GetRequiredService<WeightListPage>(),
             TrackerKind.Pumping => _services.GetRequiredService<PumpingListPage>(),
             TrackerKind.Supplement => _services.GetRequiredService<SupplementListPage>(),
+            TrackerKind.MomSleep => _services.GetRequiredService<MomSleepListPage>(),
             _ => throw new NotSupportedException()
         };
         await Navigation.PushAsync(page);

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:BabyTracker.App.Localization"
+             xmlns:vm="clr-namespace:BabyTracker.App.ViewModels"
+             x:Class="BabyTracker.App.Views.CustomizeHomePage"
+             Title="{loc:Translate Key=CustomizeHome_Title}">
+    <CollectionView ItemsSource="{Binding Items}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vm:TrackerVisibilityItem">
+                <Grid Padding="15,10"
+                        ColumnDefinitions="Auto,*,Auto">
+                    <Label Grid.Column="0"
+                            Text="{Binding Icon}"
+                            FontSize="22"
+                            Margin="0,0,12,0"
+                            VerticalOptions="Center"/>
+                    <Label Grid.Column="1"
+                            Text="{Binding Label}"
+                            FontSize="16"
+                            VerticalOptions="Center"/>
+                    <Switch Grid.Column="2"
+                            IsToggled="{Binding IsVisible}"/>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

@@ -17,5 +17,7 @@
                 SelectedItem="{Binding SelectedUnitSystem}"/>
         <Button Text="{loc:Translate Key=ManageSupplements_Title}"
                 Command="{Binding OpenManageSupplementsCommand}"/>
+        <Button Text="{loc:Translate Key=CustomizeHome_Title}"
+                Command="{Binding OpenCustomizeHomeCommand}"/>
         </VerticalStackLayout>
 </ContentPage>

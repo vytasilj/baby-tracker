@@ -29,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<Services.CurrentChildContext>();
         services.AddSingleton<Services.ChildDeletionService>();
         services.AddSingleton<Services.UnitPreferenceService>();
+        services.AddSingleton<Services.HomeLayoutPreferenceService>();
         return services;
     }
 
@@ -93,6 +94,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Views.MomSleepListPage>();
         services.AddTransient<ViewModels.MomSleepEntryViewModel>();
         services.AddTransient<Views.MomSleepEntryPage>();
+
+        services.AddTransient<ViewModels.CustomizeHomeViewModel>();
+        services.AddTransient<Views.CustomizeHomePage>();
 
         return services;
     }

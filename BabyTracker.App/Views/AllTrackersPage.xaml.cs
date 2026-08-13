@@ -1,5 +1,4 @@
 using BabyTracker.App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BabyTracker.App.Views;
 
@@ -16,19 +15,5 @@ public partial class AllTrackersPage : ContentPage
     }
 
     private async void OnTrackerSelected(TrackerKind kind)
-    {
-        Page page = kind switch
-        {
-            TrackerKind.Feeding => _services.GetRequiredService<FeedingListPage>(),
-            TrackerKind.Sleep => _services.GetRequiredService<SleepListPage>(),
-            TrackerKind.Diaper => _services.GetRequiredService<DiaperListPage>(),
-            TrackerKind.Temperature => _services.GetRequiredService<TemperatureListPage>(),
-            TrackerKind.Weight => _services.GetRequiredService<WeightListPage>(),
-            TrackerKind.Pumping => _services.GetRequiredService<PumpingListPage>(),
-            TrackerKind.Supplement => _services.GetRequiredService<SupplementListPage>(),
-            TrackerKind.MomSleep => _services.GetRequiredService<MomSleepListPage>(),
-            _ => throw new NotSupportedException()
-        };
-        await Navigation.PushAsync(page);
-    }
+        => await Navigation.PushAsync(TrackerNavigation.ResolveListPage(kind, _services));
 }

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:loc="clr-namespace:BabyTracker.App.Localization"
+             xmlns:vm="clr-namespace:BabyTracker.App.ViewModels"
              x:Class="BabyTracker.App.Views.HomePage"
              Title="Baby Tracker">
        <Grid RowDefinitions="Auto,Auto,*"
@@ -41,155 +42,52 @@
                                    HorizontalTextAlignment="Center"/>
               </VerticalStackLayout>
 
-              <VerticalStackLayout Grid.Row="2"
-                            Spacing="12">
-                     <!-- Feeding -->
-                     <Border Padding="15"
-                                   StrokeThickness="1"
-                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
-                            <Border.StrokeShape>
-                                   <RoundRectangle CornerRadius="14"/>
-                            </Border.StrokeShape>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                   <Grid.GestureRecognizers>
-                                          <TapGestureRecognizer Command="{Binding OpenFeedingCommand}"/>
-                                   </Grid.GestureRecognizers>
-                                   <Label Grid.Column="0"
-                                                 Text="🍼"
-                                                 FontSize="30"
-                                                 VerticalOptions="Center"/>
-                                   <VerticalStackLayout Grid.Column="1"
-                                                 Margin="15,0"
-                                                 VerticalOptions="Center">
-                                          <Label Text="{loc:Translate Key=Feeding_Title}"
-                                                        FontSize="14"
-                                                        Opacity="0.7"/>
-                                          <Label Text="{Binding FeedingSummary}"
-                                                        FontSize="24"
-                                                        FontAttributes="Bold"/>
-                                   </VerticalStackLayout>
-                                   <Button Grid.Column="2"
-                                                 Text="+"
-                                                 FontSize="24"
-                                                 WidthRequest="46"
-                                                 HeightRequest="46"
-                                           CornerRadius="23"
-                                                 Padding="0"
-                                                 VerticalOptions="Center"
-                                           Command="{Binding AddFeedingCommand}"/>
-                            </Grid>
-                     </Border>
-
-                     <!-- Sleep -->
-                     <Border Padding="15"
-                                   StrokeThickness="1"
-                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
-                            <Border.StrokeShape>
-                                   <RoundRectangle CornerRadius="14"/>
-                            </Border.StrokeShape>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                   <Grid.GestureRecognizers>
-                                          <TapGestureRecognizer Command="{Binding OpenSleepCommand}"/>
-                                   </Grid.GestureRecognizers>
-                                   <Label Grid.Column="0"
-                                                 Text="😴"
-                                                 FontSize="30"
-                                                 VerticalOptions="Center"/>
-                                   <VerticalStackLayout Grid.Column="1"
-                                                 Margin="15,0"
-                                                 VerticalOptions="Center">
-                                          <Label Text="{loc:Translate Key=Sleep_Title}"
-                                                        FontSize="14"
-                                                        Opacity="0.7"/>
-                                          <Label Text="{Binding SleepSummary}"
-                                                        FontSize="24"
-                                                        FontAttributes="Bold"/>
-                                   </VerticalStackLayout>
-                                   <Button Grid.Column="2"
-                                                 Text="+"
-                                                 FontSize="24"
-                                                 WidthRequest="46"
-                                                 HeightRequest="46"
-                                           CornerRadius="23"
-                                                 Padding="0"
-                                                 VerticalOptions="Center"
-                                           Command="{Binding AddSleepCommand}"/>
-                            </Grid>
-                     </Border>
-
-                     <!-- Diapers -->
-                     <Border Padding="15"
-                                   StrokeThickness="1"
-                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
-                            <Border.StrokeShape>
-                                   <RoundRectangle CornerRadius="14"/>
-                            </Border.StrokeShape>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                   <Grid.GestureRecognizers>
-                                          <TapGestureRecognizer Command="{Binding OpenDiapersCommand}"/>
-                                   </Grid.GestureRecognizers>
-                                   <Label Grid.Column="0"
-                                                 Text="🧷"
-                                                 FontSize="30"
-                                                 VerticalOptions="Center"/>
-                                   <VerticalStackLayout Grid.Column="1"
-                                                 Margin="15,0"
-                                                 VerticalOptions="Center">
-                                          <Label Text="{loc:Translate Key=Diaper_Title}"
-                                                        FontSize="14"
-                                                        Opacity="0.7"/>
-                                          <Label Text="{Binding DiaperSummary}"
-                                                        FontSize="24"
-                                                        FontAttributes="Bold"/>
-                                   </VerticalStackLayout>
-                                   <Button Grid.Column="2"
-                                                 Text="+"
-                                                 FontSize="24"
-                                                 WidthRequest="46"
-                                                 HeightRequest="46"
-                                           CornerRadius="23"
-                                                 Padding="0"
-                                                 VerticalOptions="Center"
-                                           Command="{Binding AddDiaperCommand}"/>
-                            </Grid>
-                     </Border>
-
-                     <!-- Mom's Sleep -->
-                     <Border Padding="15"
-                                   StrokeThickness="1"
-                             Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
-                            <Border.StrokeShape>
-                                   <RoundRectangle CornerRadius="14"/>
-                            </Border.StrokeShape>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                   <Grid.GestureRecognizers>
-                                          <TapGestureRecognizer Command="{Binding OpenMomSleepCommand}"/>
-                                   </Grid.GestureRecognizers>
-                                   <Label Grid.Column="0"
-                                                 Text="😌"
-                                                 FontSize="30"
-                                                 VerticalOptions="Center"/>
-                                   <VerticalStackLayout Grid.Column="1"
-                                                 Margin="15,0"
-                                                 VerticalOptions="Center">
-                                          <Label Text="{loc:Translate Key=MomSleep_Title}"
-                                                        FontSize="14"
-                                                        Opacity="0.7"/>
-                                          <Label Text="{Binding MomSleepSummary}"
-                                                        FontSize="24"
-                                                        FontAttributes="Bold"/>
-                                   </VerticalStackLayout>
-                                   <Button Grid.Column="2"
-                                                 Text="+"
-                                                 FontSize="24"
-                                                 WidthRequest="46"
-                                                 HeightRequest="46"
-                                           CornerRadius="23"
-                                                 Padding="0"
-                                                 VerticalOptions="Center"
-                                           Command="{Binding AddMomSleepCommand}"/>
-                            </Grid>
-                     </Border>
-              </VerticalStackLayout>
+              <ScrollView Grid.Row="2">
+                     <VerticalStackLayout Spacing="12"
+                                   BindableLayout.ItemsSource="{Binding Cards}">
+                            <BindableLayout.ItemTemplate>
+                                   <DataTemplate x:DataType="vm:HomeCardItem">
+                                          <Border Padding="15"
+                                                        StrokeThickness="1"
+                                                  Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}">
+                                                 <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="14"/>
+                                                 </Border.StrokeShape>
+                                                 <Grid ColumnDefinitions="Auto,*,Auto">
+                                                        <Grid.GestureRecognizers>
+                                                               <TapGestureRecognizer
+                                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenTrackerCommand}"
+                                                                      CommandParameter="{Binding .}"/>
+                                                        </Grid.GestureRecognizers>
+                                                        <Label Grid.Column="0"
+                                                                      Text="{Binding Icon}"
+                                                                      FontSize="30"
+                                                                      VerticalOptions="Center"/>
+                                                        <VerticalStackLayout Grid.Column="1"
+                                                                      Margin="15,0"
+                                                                      VerticalOptions="Center">
+                                                               <Label Text="{Binding Label}"
+                                                                             FontSize="14"
+                                                                             Opacity="0.7"/>
+                                                               <Label Text="{Binding Summary}"
+                                                                             FontSize="24"
+                                                                             FontAttributes="Bold"/>
+                                                        </VerticalStackLayout>
+                                                        <Button Grid.Column="2"
+                                                                      Text="+"
+                                                                      FontSize="24"
+                                                                      WidthRequest="46"
+                                                                      HeightRequest="46"
+                                                                CornerRadius="23"
+                                                                      Padding="0"
+                                                                      VerticalOptions="Center"
+                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddTrackerCommand}"
+                                                                CommandParameter="{Binding .}"/>
+                                                 </Grid>
+                                          </Border>
+                                   </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                     </VerticalStackLayout>
+              </ScrollView>
        </Grid>
 </ContentPage>

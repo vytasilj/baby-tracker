@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BabyTracker.Data;
@@ -6,51 +7,62 @@ using BabyTracker.App.Localization;
 
 namespace BabyTracker.App.ViewModels;
 
+public record HomeCardItem(TrackerKind Kind, string Icon, string Label, string Summary);
+
 public partial class HomeViewModel : ObservableObject
 {
     private readonly ChildRepository _childRepository;
     private readonly EntryRepository<FeedingEntry> _feedingRepository;
     private readonly SleepRepository _sleepRepository;
     private readonly EntryRepository<DiaperEntry> _diaperRepository;
-    private readonly CurrentChildContext _childContext;
+    private readonly EntryRepository<TemperatureEntry> _temperatureRepository;
+    private readonly EntryRepository<WeightEntry> _weightRepository;
+    private readonly EntryRepository<PumpingEntry> _pumpingRepository;
+    private readonly SupplementRepository _supplementRepository;
     private readonly MomSleepRepository _momSleepRepository;
+    private readonly CurrentChildContext _childContext;
+    private readonly UnitPreferenceService _unitPreference;
+    private readonly HomeLayoutPreferenceService _homeLayout;
     private AgeDescription? _ageDescription;
 
     [ObservableProperty] private string _childName = "";
     [ObservableProperty] private string _age = "";
     [ObservableProperty] private string _themeIcon = ThemeService.GetIconForCurrentTheme();
 
-    [ObservableProperty] private string _feedingSummary = "—";
-    [ObservableProperty] private string _sleepSummary = "—";
-    [ObservableProperty] private string _diaperSummary = "—";
-    [ObservableProperty] private string _momSleepSummary = "—";
+    public ObservableCollection<HomeCardItem> Cards { get; } = [];
 
     public event Action? SettingsRequested;
     public event Action? ChildrenRequested;
-    public event Action? DiapersRequested;
-    public event Action? FeedingRequested;
-    public event Action? SleepRequested;
-    public event Action? AddDiaperRequested;
-    public event Action? AddFeedingRequested;
-    public event Action? AddSleepRequested;
     public event Action? AllTrackersRequested;
-    public event Action? MomSleepRequested;
-    public event Action? AddMomSleepRequested;
+    public event Action<TrackerKind>? OpenTrackerRequested;
+    public event Action<TrackerKind>? AddTrackerRequested;
 
     public HomeViewModel(
         ChildRepository childRepository,
         EntryRepository<FeedingEntry> feedingRepository,
         SleepRepository sleepRepository,
         EntryRepository<DiaperEntry> diaperRepository,
+        EntryRepository<TemperatureEntry> temperatureRepository,
+        EntryRepository<WeightEntry> weightRepository,
+        EntryRepository<PumpingEntry> pumpingRepository,
+        SupplementRepository supplementRepository,
+        MomSleepRepository momSleepRepository,
         CurrentChildContext childContext,
-        MomSleepRepository momSleepRepository)
+        UnitPreferenceService unitPreference,
+        HomeLayoutPreferenceService homeLayout)
     {
         _childRepository = childRepository;
         _feedingRepository = feedingRepository;
         _sleepRepository = sleepRepository;
         _diaperRepository = diaperRepository;
-        _childContext = childContext;
+        _temperatureRepository = temperatureRepository;
+        _weightRepository = weightRepository;
+        _pumpingRepository = pumpingRepository;
+        _supplementRepository = supplementRepository;
         _momSleepRepository = momSleepRepository;
+        _childContext = childContext;
+        _unitPreference = unitPreference;
+        _homeLayout = homeLayout;
 
         _ = RefreshAsync();
         _childContext.Changed += async () => await RefreshAsync();
@@ -58,7 +70,7 @@ public partial class HomeViewModel : ObservableObject
         LocalizationResourceManager.Instance.PropertyChanged += (_, _) =>
         {
             if (_ageDescription is not null) Age = AgeFormatter.Format(_ageDescription);
-            _ = RefreshSummaryAsync(); // "hours"/"minutes" wording depends on the current language too
+            _ = RefreshSummaryAsync();
         };
     }
 
@@ -81,19 +93,71 @@ public partial class HomeViewModel : ObservableObject
         if (_childContext.ChildId is not { } childId) return;
 
         var today = DateOnly.FromDateTime(DateTime.Today);
-        var feedings = await _feedingRepository.GetAllAsync(childId);
-        var sleeps = await _sleepRepository.GetAllAsync(childId);
-        var diapers = await _diaperRepository.GetAllAsync(childId);
+        var cards = new List<HomeCardItem>();
 
-        var summary = DailySummaryCalculator.Calculate(today, feedings, sleeps, diapers, DateTime.Now);
+        foreach (var kind in Enum.GetValues<TrackerKind>().Where(_homeLayout.IsVisible))
+        {
+            var summary = await ComputeSummaryAsync(kind, childId, today);
+            cards.Add(new HomeCardItem(kind, TrackerKindInfo.Icon(kind), TrackerKindInfo.Label(kind), summary));
+        }
 
-        var momSleeps = await _momSleepRepository.GetAllAsync();
-        var momSleepHours = SleepHoursCalculator.TotalHoursForDay(today, momSleeps.Select(s => (s.StartTime, s.EndTime)), DateTime.Now);
+        Cards.Clear();
+        foreach (var c in cards) Cards.Add(c);
+    }
 
-        FeedingSummary = $"{summary.FeedingCount}×";
-        SleepSummary = SleepFormatter.FormatTotalHours(summary.SleepHours);
-        DiaperSummary = $"{summary.DiaperCount}×";
-        MomSleepSummary = SleepFormatter.FormatTotalHours(momSleepHours);
+    // Event-based trackers (logged multiple times a day) show today's count.
+    // Value-based trackers (Temperature/Weight, logged occasionally) show the most recent reading instead.
+    private async Task<string> ComputeSummaryAsync(TrackerKind kind, Guid childId, DateOnly today)
+    {
+        var loc = LocalizationResourceManager.Instance;
+
+        switch (kind)
+        {
+            case TrackerKind.Feeding:
+                {
+                    var entries = await _feedingRepository.GetAllAsync(childId);
+                    return $"{entries.Count(e => DateOnly.FromDateTime(e.OccurredAt) == today)}×";
+                }
+            case TrackerKind.Diaper:
+                {
+                    var entries = await _diaperRepository.GetAllAsync(childId);
+                    return $"{entries.Count(e => DateOnly.FromDateTime(e.OccurredAt) == today)}×";
+                }
+            case TrackerKind.Pumping:
+                {
+                    var entries = await _pumpingRepository.GetAllAsync(childId);
+                    return $"{entries.Count(e => DateOnly.FromDateTime(e.OccurredAt) == today)}×";
+                }
+            case TrackerKind.Supplement:
+                {
+                    var entries = await _supplementRepository.GetEntriesAsync(childId);
+                    return $"{entries.Count(e => DateOnly.FromDateTime(e.OccurredAt) == today)}×";
+                }
+            case TrackerKind.Sleep:
+                {
+                    var entries = await _sleepRepository.GetAllAsync(childId);
+                    var hours = SleepHoursCalculator.TotalHoursForDay(today, entries.Select(e => (e.StartTime, e.EndTime)), DateTime.Now);
+                    return SleepFormatter.FormatTotalHours(hours);
+                }
+            case TrackerKind.MomSleep:
+                {
+                    var entries = await _momSleepRepository.GetAllAsync();
+                    var hours = SleepHoursCalculator.TotalHoursForDay(today, entries.Select(e => (e.StartTime, e.EndTime)), DateTime.Now);
+                    return SleepFormatter.FormatTotalHours(hours);
+                }
+            case TrackerKind.Temperature:
+                {
+                    var entries = await _temperatureRepository.GetAllAsync(childId);
+                    return entries.Count == 0 ? "—" : TemperatureFormatter.FormatForDisplay(entries[0].ValueCelsius, _unitPreference.Current, loc.NumberFormatCulture);
+                }
+            case TrackerKind.Weight:
+                {
+                    var entries = await _weightRepository.GetAllAsync(childId);
+                    return entries.Count == 0 ? "—" : WeightFormatter.FormatForDisplay(entries[0].WeightKg, _unitPreference.Current, loc.NumberFormatCulture);
+                }
+            default:
+                return "—";
+        }
     }
 
     [RelayCommand]
@@ -105,13 +169,7 @@ public partial class HomeViewModel : ObservableObject
 
     [RelayCommand] private void OpenSettings() => SettingsRequested?.Invoke();
     [RelayCommand] private void OpenChildren() => ChildrenRequested?.Invoke();
-    [RelayCommand] private void OpenDiapers() => DiapersRequested?.Invoke();
-    [RelayCommand] private void OpenFeeding() => FeedingRequested?.Invoke();
-    [RelayCommand] private void OpenSleep() => SleepRequested?.Invoke();
-    [RelayCommand] private void AddDiaper() => AddDiaperRequested?.Invoke();
-    [RelayCommand] private void AddFeeding() => AddFeedingRequested?.Invoke();
-    [RelayCommand] private void AddSleep() => AddSleepRequested?.Invoke();
     [RelayCommand] private void OpenAllTrackers() => AllTrackersRequested?.Invoke();
-    [RelayCommand] private void OpenMomSleep() => MomSleepRequested?.Invoke();
-    [RelayCommand] private void AddMomSleep() => AddMomSleepRequested?.Invoke();
+    [RelayCommand] private void OpenTracker(HomeCardItem card) => OpenTrackerRequested?.Invoke(card.Kind);
+    [RelayCommand] private void AddTracker(HomeCardItem card) => AddTrackerRequested?.Invoke(card.Kind);
 }

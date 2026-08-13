@@ -255,4 +255,5 @@
   <data name="ManageSupplements_HideButton" xml:space="preserve"><value>Skrýt</value></data>
   <data name="ManageSupplements_RestoreButton" xml:space="preserve"><value>Obnovit</value></data>
   <data name="MomSleep_Title" xml:space="preserve"><value>Spánek maminky</value></data>
+  <data name="CustomizeHome_Title" xml:space="preserve"><value>Přizpůsobit domovskou obrazovku</value></data>
 </root>

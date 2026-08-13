@@ -9,5 +9,6 @@ public partial class SettingsPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
         viewModel.ManageSupplementsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<ManageSupplementsPage>());
+        viewModel.CustomizeHomeRequested += async () => await Navigation.PushAsync(services.GetRequiredService<CustomizeHomePage>());
     }
 }

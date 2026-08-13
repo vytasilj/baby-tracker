@@ -17,7 +17,7 @@
 - [x] Pumping (odsávání)
 - [x] Supplements (Vitamin D, probiotics, anti-gas drops, ...)
 - [x] Mom's sleep (properly aggregated, not a single circle)
-- [ ] Per-tracker enable/disable in Settings (TrackerSetting entity already exists, not wired to any UI yet)
+- [x] Per-tracker enable/disable in Settings (TrackerSetting entity already exists, not wired to any UI yet)
 
 ## Phase 3: Calendar & vaccinations
 - [ ] Calendar with important events (doctor appointments, etc.)

@@ -23,6 +23,7 @@ public partial class HomeViewModel : ObservableObject
     private readonly CurrentChildContext _childContext;
     private readonly UnitPreferenceService _unitPreference;
     private readonly HomeLayoutPreferenceService _homeLayout;
+    private readonly CalendarEventRepository _calendarRepository;
     private AgeDescription? _ageDescription;
 
     [ObservableProperty] private string _childName = "";
@@ -49,7 +50,8 @@ public partial class HomeViewModel : ObservableObject
         MomSleepRepository momSleepRepository,
         CurrentChildContext childContext,
         UnitPreferenceService unitPreference,
-        HomeLayoutPreferenceService homeLayout)
+        HomeLayoutPreferenceService homeLayout,
+        CalendarEventRepository calendarRepository)
     {
         _childRepository = childRepository;
         _feedingRepository = feedingRepository;
@@ -63,6 +65,7 @@ public partial class HomeViewModel : ObservableObject
         _childContext = childContext;
         _unitPreference = unitPreference;
         _homeLayout = homeLayout;
+        _calendarRepository = calendarRepository;
 
         _ = RefreshAsync();
         _childContext.Changed += async () => await RefreshAsync();
@@ -154,6 +157,12 @@ public partial class HomeViewModel : ObservableObject
                 {
                     var entries = await _weightRepository.GetAllAsync(childId);
                     return entries.Count == 0 ? "—" : WeightFormatter.FormatForDisplay(entries[0].WeightKg, _unitPreference.Current, loc.NumberFormatCulture);
+                }
+            case TrackerKind.Calendar:
+                {
+                    var events = await _calendarRepository.GetAllAsync();
+                    var next = events.FirstOrDefault(e => e.OccursAt >= DateTime.Now);
+                    return next is null ? "—" : next.OccursAt.ToString("d.M. HH:mm");
                 }
             default:
                 return "—";

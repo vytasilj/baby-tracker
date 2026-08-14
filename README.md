@@ -43,4 +43,4 @@ dotnet test BabyTracker.Tests/BabyTracker.Tests.csproj
 
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md) for what's built and what's planned (calendar, vaccinations, statistics, multi-parent sync via a shared Google Drive file, Play Store release).
+See [ROADMAP.md](roadmap.md) for what's built and what's planned (calendar, vaccinations, statistics, multi-parent sync via a shared Google Drive file, Play Store release).

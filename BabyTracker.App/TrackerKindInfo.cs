@@ -15,6 +15,7 @@ public static class TrackerKindInfo
         TrackerKind.Supplement => "💊",
         TrackerKind.MomSleep => "😌",
         TrackerKind.Calendar => "🗓️",
+        TrackerKind.Vaccination => "💉",
         _ => "❔"
     };
 
@@ -32,6 +33,7 @@ public static class TrackerKindInfo
             TrackerKind.Supplement => loc["Supplement_Title"],
             TrackerKind.MomSleep => loc["MomSleep_Title"],
             TrackerKind.Calendar => loc["Calendar_Title"],
+            TrackerKind.Vaccination => loc["Vaccination_Title"],
             _ => "?"
         };
     }

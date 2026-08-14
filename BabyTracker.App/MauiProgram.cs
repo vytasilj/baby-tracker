@@ -39,6 +39,9 @@ public static class MauiProgram
 
 			var supplementRepository = scope.ServiceProvider.GetRequiredService<SupplementRepository>();
 			supplementRepository.EnsureBuiltInDefinitionsAsync().GetAwaiter().GetResult();
+
+			var vaccinationRepository = scope.ServiceProvider.GetRequiredService<VaccinationRepository>();
+			vaccinationRepository.EnsureBuiltInDefinitionsAsync().GetAwaiter().GetResult();
 		}
 
 		return app;

@@ -21,6 +21,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<SupplementRepository>();
         services.AddSingleton<MomSleepRepository>();
         services.AddSingleton<CalendarEventRepository>();
+        services.AddSingleton<VaccinationRepository>();
 
         return services;
     }
@@ -103,6 +104,11 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Views.CalendarListPage>();
         services.AddTransient<ViewModels.CalendarEntryViewModel>();
         services.AddTransient<Views.CalendarEntryPage>();
+
+        services.AddTransient<ViewModels.VaccinationListViewModel>();
+        services.AddTransient<Views.VaccinationListPage>();
+        services.AddTransient<ViewModels.VaccinationEntryViewModel>();
+        services.AddTransient<Views.VaccinationEntryPage>();
 
         return services;
     }

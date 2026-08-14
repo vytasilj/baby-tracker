@@ -17,6 +17,7 @@ public partial class HomePage : ContentPage
         viewModel.AllTrackersRequested += async () => await Navigation.PushAsync(services.GetRequiredService<AllTrackersPage>());
         viewModel.OpenTrackerRequested += async kind => await Navigation.PushAsync(TrackerNavigation.ResolveListPage(kind, services));
         viewModel.AddTrackerRequested += async kind => await TrackerNavigation.NavigateToAddNewAsync(kind, Navigation, services);
+        viewModel.StatisticsRequested += async () => await Navigation.PushAsync(services.GetRequiredService<StatisticsPage>());
     }
 
     protected override void OnAppearing()

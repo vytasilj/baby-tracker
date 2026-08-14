@@ -15,6 +15,8 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
     public DbSet<SupplementEntry> SupplementEntries => Set<SupplementEntry>();
     public DbSet<MomSleepEntry> MomSleepEntries => Set<MomSleepEntry>();
     public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
+    public DbSet<VaccineDefinition> VaccineDefinitions => Set<VaccineDefinition>();
+    public DbSet<VaccinationEntry> VaccinationEntries => Set<VaccinationEntry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,5 +25,10 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
         modelBuilder.Entity<SupplementEntry>()
             .HasMany(e => e.Supplements)
             .WithMany();
+        modelBuilder.Entity<VaccinationEntry>()
+            .HasOne(e => e.Vaccine)
+            .WithMany()
+            .HasForeignKey(e => e.VaccineDefinitionId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

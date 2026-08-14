@@ -261,4 +261,18 @@
   <data name="Calendar_ForLabel" xml:space="preserve"><value>Pro</value></data>
   <data name="Calendar_FamilyWide" xml:space="preserve"><value>Rodina (netýká se konkrétního dítěte)</value></data>
   <data name="Calendar_AddToDeviceCalendar" xml:space="preserve"><value>Přidat do kalendáře v telefonu</value></data>
+  <data name="Vaccination_Title" xml:space="preserve"><value>Očkování</value></data>
+  <data name="Vaccination_PickLabel" xml:space="preserve"><value>Vakcína</value></data>
+  <data name="Vaccination_AlreadyGivenLabel" xml:space="preserve"><value>Už podáno</value></data>
+  <data name="Vaccination_DateGivenLabel" xml:space="preserve"><value>Datum podání</value></data>
+  <data name="Vaccination_DueDateLabel" xml:space="preserve"><value>Plánované datum</value></data>
+  <data name="Vaccination_DoseLabel" xml:space="preserve"><value>Číslo dávky (nepovinné)</value></data>
+  <data name="Vaccination_Given" xml:space="preserve"><value>Podáno</value></data>
+  <data name="Vaccination_Due" xml:space="preserve"><value>Plánováno</value></data>
+  <data name="Vaccine_HepatitisB" xml:space="preserve"><value>Hepatitida B</value></data>
+  <data name="Vaccine_Rotavirus" xml:space="preserve"><value>Rotavirus</value></data>
+  <data name="Vaccine_DTaP" xml:space="preserve"><value>Záškrt, tetanus, černý kašel</value></data>
+  <data name="Vaccine_Hib" xml:space="preserve"><value>Hemofilová infekce typu b</value></data>
+  <data name="Vaccine_Pneumococcal" xml:space="preserve"><value>Pneumokok</value></data>
+  <data name="Vaccine_MMR" xml:space="preserve"><value>Spalničky, příušnice, zarděnky</value></data>
 </root>

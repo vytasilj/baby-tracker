@@ -261,4 +261,18 @@
   <data name="Calendar_ForLabel" xml:space="preserve"><value>For</value></data>
   <data name="Calendar_FamilyWide" xml:space="preserve"><value>Family (not child-specific)</value></data>
   <data name="Calendar_AddToDeviceCalendar" xml:space="preserve"><value>Add to phone calendar</value></data>
+  <data name="Vaccination_Title" xml:space="preserve"><value>Vaccinations</value></data>
+  <data name="Vaccination_PickLabel" xml:space="preserve"><value>Vaccine</value></data>
+  <data name="Vaccination_AlreadyGivenLabel" xml:space="preserve"><value>Already given</value></data>
+  <data name="Vaccination_DateGivenLabel" xml:space="preserve"><value>Date given</value></data>
+  <data name="Vaccination_DueDateLabel" xml:space="preserve"><value>Due date</value></data>
+  <data name="Vaccination_DoseLabel" xml:space="preserve"><value>Dose number (optional)</value></data>
+  <data name="Vaccination_Given" xml:space="preserve"><value>Given</value></data>
+  <data name="Vaccination_Due" xml:space="preserve"><value>Due</value></data>
+  <data name="Vaccine_HepatitisB" xml:space="preserve"><value>Hepatitis B</value></data>
+  <data name="Vaccine_Rotavirus" xml:space="preserve"><value>Rotavirus</value></data>
+  <data name="Vaccine_DTaP" xml:space="preserve"><value>DTaP (Diphtheria, Tetanus, Pertussis)</value></data>
+  <data name="Vaccine_Hib" xml:space="preserve"><value>Hib (Haemophilus influenzae type b)</value></data>
+  <data name="Vaccine_Pneumococcal" xml:space="preserve"><value>Pneumococcal</value></data>
+  <data name="Vaccine_MMR" xml:space="preserve"><value>MMR (Measles, Mumps, Rubella)</value></data>
 </root>

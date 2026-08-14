@@ -21,7 +21,7 @@
 
 ## Phase 3: Calendar & vaccinations
 - [x] Calendar with important events (doctor appointments, etc.)
-- [ ] Vaccination history/tracking
+- [x] Vaccination history/tracking
 - [ ] Hip ultrasound / newborn screening records
 
 ## Phase 4: Statistics

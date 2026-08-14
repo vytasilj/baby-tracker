@@ -256,4 +256,9 @@
   <data name="ManageSupplements_RestoreButton" xml:space="preserve"><value>Restore</value></data>
   <data name="MomSleep_Title" xml:space="preserve"><value>Mom's Sleep</value></data>
   <data name="CustomizeHome_Title" xml:space="preserve"><value>Customize Home</value></data>
+  <data name="Calendar_Title" xml:space="preserve"><value>Calendar</value></data>
+  <data name="Calendar_EventTitleLabel" xml:space="preserve"><value>Event title</value></data>
+  <data name="Calendar_ForLabel" xml:space="preserve"><value>For</value></data>
+  <data name="Calendar_FamilyWide" xml:space="preserve"><value>Family (not child-specific)</value></data>
+  <data name="Calendar_AddToDeviceCalendar" xml:space="preserve"><value>Add to phone calendar</value></data>
 </root>

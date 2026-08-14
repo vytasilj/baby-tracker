@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<EntryRepository<PumpingEntry>>();
         services.AddSingleton<SupplementRepository>();
         services.AddSingleton<MomSleepRepository>();
+        services.AddSingleton<CalendarEventRepository>();
 
         return services;
     }
@@ -97,6 +98,11 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<ViewModels.CustomizeHomeViewModel>();
         services.AddTransient<Views.CustomizeHomePage>();
+
+        services.AddTransient<ViewModels.CalendarListViewModel>();
+        services.AddTransient<Views.CalendarListPage>();
+        services.AddTransient<ViewModels.CalendarEntryViewModel>();
+        services.AddTransient<Views.CalendarEntryPage>();
 
         return services;
     }

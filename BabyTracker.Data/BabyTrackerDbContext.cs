@@ -14,6 +14,7 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
     public DbSet<SupplementDefinition> SupplementDefinitions => Set<SupplementDefinition>();
     public DbSet<SupplementEntry> SupplementEntries => Set<SupplementEntry>();
     public DbSet<MomSleepEntry> MomSleepEntries => Set<MomSleepEntry>();
+    public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

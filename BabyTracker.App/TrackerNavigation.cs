@@ -15,6 +15,7 @@ public static class TrackerNavigation
         TrackerKind.Pumping => services.GetRequiredService<PumpingListPage>(),
         TrackerKind.Supplement => services.GetRequiredService<SupplementListPage>(),
         TrackerKind.MomSleep => services.GetRequiredService<MomSleepListPage>(),
+        TrackerKind.Calendar => services.GetRequiredService<CalendarListPage>(),
         _ => throw new NotSupportedException()
     };
 
@@ -61,6 +62,11 @@ public static class TrackerNavigation
                 var mp = services.GetRequiredService<MomSleepEntryPage>();
                 mp.LoadEntry(null);
                 await navigation.PushAsync(mp);
+                break;
+            case TrackerKind.Calendar:
+                var cp = services.GetRequiredService<CalendarEntryPage>();
+                cp.LoadEntry(null);
+                await navigation.PushAsync(cp);
                 break;
         }
     }

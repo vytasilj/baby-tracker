@@ -22,7 +22,7 @@
 ## Phase 3: Calendar & vaccinations
 - [x] Calendar with important events (doctor appointments, etc.)
 - [x] Vaccination history/tracking
-- [ ] Hip ultrasound / newborn screening records
+- [x] Hip ultrasound / newborn screening records
 
 ## Phase 4: Statistics
 - [ ] Weight gain over week/month/custom range

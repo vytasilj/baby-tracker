@@ -17,6 +17,7 @@ public class BabyTrackerDbContext(DbContextOptions<BabyTrackerDbContext> options
     public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
     public DbSet<VaccineDefinition> VaccineDefinitions => Set<VaccineDefinition>();
     public DbSet<VaccinationEntry> VaccinationEntries => Set<VaccinationEntry>();
+    public DbSet<MedicalExamEntry> MedicalExamEntries => Set<MedicalExamEntry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

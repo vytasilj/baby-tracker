@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:BabyTracker.App.Localization"
+             xmlns:vm="clr-namespace:BabyTracker.App.ViewModels"
+             x:Class="BabyTracker.App.Views.MedicalExamEntryPage"
+             Title="{loc:Translate Key=MedicalExam_Title}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                Spacing="15">
+            <Label Text="{loc:Translate Key=MedicalExam_TypeLabel}"/>
+            <Picker ItemsSource="{Binding ExamTypeOptions}"
+                    ItemDisplayBinding="{Binding DisplayName}"
+                    SelectedItem="{Binding SelectedExamType}"/>
+
+            <Entry Text="{Binding CustomExamName}"
+                   Placeholder="{loc:Translate Key=MedicalExam_CustomNamePlaceholder}"
+                   IsVisible="{Binding IsCustomType}"/>
+
+            <Label Text="{loc:Translate Key=Common_TimeLabel}"/>
+            <HorizontalStackLayout Spacing="10">
+                <DatePicker Date="{Binding EntryDate}"/>
+                <TimePicker Time="{Binding EntryTime}"/>
+            </HorizontalStackLayout>
+
+            <Label Text="{loc:Translate Key=MedicalExam_ResultLabel}"/>
+            <Entry Text="{Binding Result}"/>
+
+            <Label Text="{loc:Translate Key=Common_NotesLabel}"/>
+            <Entry Text="{Binding Notes}"/>
+
+            <Button Text="{loc:Translate Key=Common_SaveButton}"
+                    Command="{Binding SaveCommand}"/>
+            <Button Text="{loc:Translate Key=Calendar_AddToDeviceCalendar}"
+                    Command="{Binding AddToDeviceCalendarCommand}"/>
+            <Button Text="{loc:Translate Key=Common_DeleteButton}"
+                    Command="{Binding DeleteCommand}"
+                    IsVisible="{Binding IsEditing}"
+                    BackgroundColor="IndianRed"/>
+            <ActivityIndicator IsRunning="{Binding IsSaving}"
+                    IsVisible="{Binding IsSaving}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

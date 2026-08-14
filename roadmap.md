@@ -55,6 +55,3 @@
       Note for Play Store prep (Phase 6): apps reading health data must fill in the
       "Health data collection and use" and "Data retention policy" sections in Play
       Console's Data Safety form, regardless of which package we use.
-
----
-*Update this file whenever a phase item is completed — check it off in the same commit as the feature, so this file always reflects reality, not memory.*

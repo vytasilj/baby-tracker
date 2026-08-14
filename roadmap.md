@@ -20,7 +20,7 @@
 - [x] Per-tracker enable/disable in Settings (TrackerSetting entity already exists, not wired to any UI yet)
 
 ## Phase 3: Calendar & vaccinations
-- [ ] Calendar with important events (doctor appointments, etc.)
+- [x] Calendar with important events (doctor appointments, etc.)
 - [ ] Vaccination history/tracking
 - [ ] Hip ultrasound / newborn screening records
 

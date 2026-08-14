@@ -17,6 +17,7 @@ public static class TrackerNavigation
         TrackerKind.MomSleep => services.GetRequiredService<MomSleepListPage>(),
         TrackerKind.Calendar => services.GetRequiredService<CalendarListPage>(),
         TrackerKind.Vaccination => services.GetRequiredService<VaccinationListPage>(),
+        TrackerKind.MedicalExam => services.GetRequiredService<MedicalExamListPage>(),
         _ => throw new NotSupportedException()
     };
 
@@ -73,6 +74,11 @@ public static class TrackerNavigation
                 var vp = services.GetRequiredService<VaccinationEntryPage>();
                 await vp.LoadEntryAsync(null);
                 await navigation.PushAsync(vp);
+                break;
+            case TrackerKind.MedicalExam:
+                var mep = services.GetRequiredService<MedicalExamEntryPage>();
+                mep.LoadEntry(null);
+                await navigation.PushAsync(mep);
                 break;
         }
     }

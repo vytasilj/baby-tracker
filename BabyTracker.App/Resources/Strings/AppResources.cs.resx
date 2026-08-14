@@ -275,4 +275,12 @@
   <data name="Vaccine_Hib" xml:space="preserve"><value>Hemofilová infekce typu b</value></data>
   <data name="Vaccine_Pneumococcal" xml:space="preserve"><value>Pneumokok</value></data>
   <data name="Vaccine_MMR" xml:space="preserve"><value>Spalničky, příušnice, zarděnky</value></data>
+  <data name="MedicalExam_Title" xml:space="preserve"><value>Lékařská vyšetření</value></data>
+  <data name="MedicalExam_TypeLabel" xml:space="preserve"><value>Typ vyšetření</value></data>
+  <data name="MedicalExam_CustomNamePlaceholder" xml:space="preserve"><value>Název vyšetření...</value></data>
+  <data name="MedicalExam_ResultLabel" xml:space="preserve"><value>Výsledek (nepovinné)</value></data>
+  <data name="MedicalExam_Custom" xml:space="preserve"><value>Jiné...</value></data>
+  <data name="MedicalExam_HipUltrasound" xml:space="preserve"><value>Screening kyčlí (UZ)</value></data>
+  <data name="MedicalExam_HearingScreening" xml:space="preserve"><value>Screening sluchu</value></data>
+  <data name="MedicalExam_MetabolicScreening" xml:space="preserve"><value>Novorozenecký screening (patička)</value></data>
 </root>

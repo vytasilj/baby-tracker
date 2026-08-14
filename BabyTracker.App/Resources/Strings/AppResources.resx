@@ -275,4 +275,12 @@
   <data name="Vaccine_Hib" xml:space="preserve"><value>Hib (Haemophilus influenzae type b)</value></data>
   <data name="Vaccine_Pneumococcal" xml:space="preserve"><value>Pneumococcal</value></data>
   <data name="Vaccine_MMR" xml:space="preserve"><value>MMR (Measles, Mumps, Rubella)</value></data>
+  <data name="MedicalExam_Title" xml:space="preserve"><value>Medical exams</value></data>
+  <data name="MedicalExam_TypeLabel" xml:space="preserve"><value>Exam type</value></data>
+  <data name="MedicalExam_CustomNamePlaceholder" xml:space="preserve"><value>Exam name...</value></data>
+  <data name="MedicalExam_ResultLabel" xml:space="preserve"><value>Result (optional)</value></data>
+  <data name="MedicalExam_Custom" xml:space="preserve"><value>Other...</value></data>
+  <data name="MedicalExam_HipUltrasound" xml:space="preserve"><value>Hip ultrasound</value></data>
+  <data name="MedicalExam_HearingScreening" xml:space="preserve"><value>Newborn hearing screening</value></data>
+  <data name="MedicalExam_MetabolicScreening" xml:space="preserve"><value>Metabolic screening (heel prick)</value></data>
 </root>

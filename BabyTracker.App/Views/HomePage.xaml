@@ -15,6 +15,10 @@
                                    Command="{Binding OpenAllTrackersCommand}"
                                    WidthRequest="50"
                                    FontSize="20"/>
+                     <Button Text="📊"
+                                   Command="{Binding OpenStatisticsCommand}"
+                                   WidthRequest="50"
+                                   FontSize="20"/>
                      <Button Text="👶"
                                    Command="{Binding OpenChildrenCommand}"
                                    WidthRequest="50"

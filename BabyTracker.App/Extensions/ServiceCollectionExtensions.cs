@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<Services.ChildDeletionService>();
         services.AddSingleton<Services.UnitPreferenceService>();
         services.AddSingleton<Services.HomeLayoutPreferenceService>();
+        services.AddSingleton<Services.DailyTrackerSummaryService>();
         return services;
     }
 
@@ -115,6 +116,11 @@ public static class ServiceCollectionExtensions
         services.AddTransient<Views.MedicalExamListPage>();
         services.AddTransient<ViewModels.MedicalExamEntryViewModel>();
         services.AddTransient<Views.MedicalExamEntryPage>();
+
+        services.AddTransient<ViewModels.StatisticsViewModel>();
+        services.AddTransient<Views.StatisticsPage>();
+        services.AddTransient<ViewModels.DayDetailViewModel>();
+        services.AddTransient<Views.DayDetailPage>();
 
         return services;
     }

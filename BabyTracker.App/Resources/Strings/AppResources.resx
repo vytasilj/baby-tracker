@@ -283,4 +283,6 @@
   <data name="MedicalExam_HipUltrasound" xml:space="preserve"><value>Hip ultrasound</value></data>
   <data name="MedicalExam_HearingScreening" xml:space="preserve"><value>Newborn hearing screening</value></data>
   <data name="MedicalExam_MetabolicScreening" xml:space="preserve"><value>Metabolic screening (heel prick)</value></data>
+  <data name="Statistics_Title" xml:space="preserve"><value>Statistics</value></data>
+  <data name="DayDetail_Title" xml:space="preserve"><value>Day summary</value></data>
 </root>

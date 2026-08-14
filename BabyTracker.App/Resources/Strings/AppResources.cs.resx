@@ -283,4 +283,6 @@
   <data name="MedicalExam_HipUltrasound" xml:space="preserve"><value>Screening kyčlí (UZ)</value></data>
   <data name="MedicalExam_HearingScreening" xml:space="preserve"><value>Screening sluchu</value></data>
   <data name="MedicalExam_MetabolicScreening" xml:space="preserve"><value>Novorozenecký screening (patička)</value></data>
+  <data name="Statistics_Title" xml:space="preserve"><value>Statistiky</value></data>
+  <data name="DayDetail_Title" xml:space="preserve"><value>Denní přehled</value></data>
 </root>

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using BabyTracker.App.Extensions;
+using Microcharts.Maui;
 
 namespace BabyTracker.App;
 
@@ -14,6 +15,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.UseMicrocharts()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

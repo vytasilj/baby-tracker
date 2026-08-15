@@ -65,6 +65,7 @@ public partial class WeightChartViewModel : ObservableObject
 
         var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
         var accentColor = SKColor.Parse(isDark ? "#2DD4BF" : "#0F8F7E");
+        var textColor = isDark ? SKColors.White : SKColors.Black;
 
         var chartEntries = filtered.Select(e =>
         {
@@ -73,7 +74,9 @@ public partial class WeightChartViewModel : ObservableObject
             {
                 Label = e.OccurredAt.ToString("d.M."),
                 ValueLabel = displayValue.ToString("0.0"),
-                Color = accentColor
+                Color = accentColor,
+                TextColor = textColor,
+                ValueLabelColor = textColor
             };
         }).ToArray();
 
@@ -82,7 +85,9 @@ public partial class WeightChartViewModel : ObservableObject
             Entries = chartEntries,
             LineMode = LineMode.Straight,
             PointMode = PointMode.Circle,
-            LabelTextSize = 28
+            LabelTextSize = 28,
+            BackgroundColor = SKColors.Transparent,
+            LabelColor = textColor
         };
     }
 }

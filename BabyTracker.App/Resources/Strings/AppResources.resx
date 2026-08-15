@@ -290,4 +290,5 @@
   <data name="Statistics_RangeAll" xml:space="preserve"><value>All</value></data>
   <data name="Statistics_NoData" xml:space="preserve"><value>No data for this period yet.</value></data>
   <data name="Statistics_WeightChart" xml:space="preserve"><value>Weight over time</value></data>
+  <data name="Statistics_SleepChart" xml:space="preserve"><value>Sleep trends</value></data>
 </root>

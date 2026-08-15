@@ -26,7 +26,7 @@
 
 ## Phase 4: Statistics
 - [x] Weight gain over week/month/custom range
-- [ ] Sleep trend graphs (baby + mom)
+- [x] Sleep trend graphs (baby + mom)
 - [x] Daily summary view for any past day (reuse DailySummaryCalculator + Home's card UI, just with a date picker instead of always "today")
 
 ## Phase 5: Multi-parent sync

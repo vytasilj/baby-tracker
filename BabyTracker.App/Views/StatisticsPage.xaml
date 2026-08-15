@@ -10,5 +10,7 @@
                 Command="{Binding OpenDayDetailCommand}"/>
         <Button Text="{loc:Translate Key=Statistics_WeightChart}"
                 Command="{Binding OpenWeightChartCommand}"/>
-    </VerticalStackLayout>
+        <Button Text="{loc:Translate Key=Statistics_SleepChart}"
+                Command="{Binding OpenSleepChartCommand}"/>
+        </VerticalStackLayout>
 </ContentPage>

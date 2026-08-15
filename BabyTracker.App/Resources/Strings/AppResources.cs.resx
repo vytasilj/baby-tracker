@@ -290,4 +290,5 @@
   <data name="Statistics_RangeAll" xml:space="preserve"><value>Vše</value></data>
   <data name="Statistics_NoData" xml:space="preserve"><value>Zatím žádná data pro toto období.</value></data>
   <data name="Statistics_WeightChart" xml:space="preserve"><value>Váha v čase</value></data>
+  <data name="Statistics_SleepChart" xml:space="preserve"><value>Trendy spánku</value></data>
 </root>

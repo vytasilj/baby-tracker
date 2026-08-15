@@ -11,5 +11,6 @@ public partial class StatisticsPage : ContentPage
         BindingContext = viewModel;
         viewModel.DayDetailRequested += async () => await Navigation.PushAsync(services.GetRequiredService<DayDetailPage>());
         viewModel.WeightChartRequested += async () => await Navigation.PushAsync(services.GetRequiredService<WeightChartPage>());
+        viewModel.SleepChartRequested += async () => await Navigation.PushAsync(services.GetRequiredService<SleepChartPage>());
     }
 }

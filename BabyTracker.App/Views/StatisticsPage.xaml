@@ -8,5 +8,7 @@
             Spacing="10">
         <Button Text="{loc:Translate Key=DayDetail_Title}"
                 Command="{Binding OpenDayDetailCommand}"/>
+        <Button Text="{loc:Translate Key=Statistics_WeightChart}"
+                Command="{Binding OpenWeightChartCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

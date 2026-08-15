@@ -125,6 +125,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ViewModels.WeightChartViewModel>();
         services.AddTransient<Views.WeightChartPage>();
 
+        services.AddTransient<ViewModels.SleepChartViewModel>();
+        services.AddTransient<Views.SleepChartPage>();
+
         return services;
     }
 }
